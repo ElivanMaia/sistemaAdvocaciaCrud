@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
+    <title>Sistema de Agendamento</title>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
@@ -17,20 +17,19 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a href="#">
+                <a href="">
                         <span class="icon">
-                            <ion-icon name="logo-apple"></ion-icon>
+                        <img src="{{ asset('assets/imgs/logo.png') }}" alt="Logo" width="54" height="54">
                         </span>
-                        <span class="title">Brand Name</span>
+                        <span class="title">Sistema de Agendamento</span>
                     </a>
                 </li>
-
                 <li>
-                    <a href="#">
+                    <a href="{{ route('dashboard2') }}">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
-                        <span class="title">Dashboard</span>
+                        <span class="title">Início</span>
                     </a>
                 </li>
 
@@ -39,7 +38,7 @@
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
-                        <span class="title">Customers</span>
+                        <span class="title">Clientes</span>
                     </a>
                 </li>
 
@@ -80,7 +79,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -97,15 +96,8 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
 
-                <div class="search">
-                    <label>
-                        <input type="text" placeholder="Search here">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </label>
-                </div>
-
                 <div class="user">
-                    <img src="{{ asset('assets/imgs/customer01.jpg') }}" alt="">
+                    <img src="{{ asset('assets/imgs/userIcon.png') }}" alt="">
                 </div>
             </div>
 
@@ -242,72 +234,56 @@
 
                     <table>
                         <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="{{ asset('assets/imgs/customer02.jpg') }}" alt=""></div>
-                            </td>
+
                             <td>
                                 <h4>David <br> <span>Italy</span></h4>
                             </td>
                         </tr>
 
                         <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="{{ asset('assets/imgs/customer01.jpg') }}" alt=""></div>
-                            </td>
+
                             <td>
                                 <h4>Amit <br> <span>India</span></h4>
                             </td>
                         </tr>
 
                         <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="{{ asset('assets/imgs/customer02.jpg') }}" alt=""></div>
-                            </td>
+
                             <td>
                                 <h4>David <br> <span>Italy</span></h4>
                             </td>
                         </tr>
 
                         <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="{{ asset('assets/imgs/customer01.jpg') }}" alt=""></div>
-                            </td>
+
                             <td>
                                 <h4>Amit <br> <span>India</span></h4>
                             </td>
                         </tr>
 
                         <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="{{ asset('assets/imgs/customer02.jpg') }}" alt=""></div>
-                            </td>
+
                             <td>
                                 <h4>David <br> <span>Italy</span></h4>
                             </td>
                         </tr>
 
                         <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="{{ asset('assets/imgs/customer01.jpg') }}" alt=""></div>
-                            </td>
+
                             <td>
                                 <h4>Amit <br> <span>India</span></h4>
                             </td>
                         </tr>
 
                         <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="{{ asset('assets/imgs/customer01.jpg') }}" alt=""></div>
-                            </td>
+
                             <td>
                                 <h4>David <br> <span>Italy</span></h4>
                             </td>
                         </tr>
 
                         <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="{{ asset('assets/imgs/customer02.jpg') }}" alt=""></div>
-                            </td>
+
                             <td>
                                 <h4>Amit <br> <span>India</span></h4>
                             </td>
