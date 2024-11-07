@@ -79,13 +79,16 @@
                 </li>
 
                 <li>
-                    <a href="">
-                        <span class="icon">
-                            <ion-icon name="log-out-outline"></ion-icon>
-                        </span>
-                        <span class="title">Sign Out</span>
-                    </a>
-                </li>
+    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+        @csrf
+    </form>
+    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <span class="icon">
+            <ion-icon name="log-out-outline"></ion-icon>
+        </span>
+        <span class="title">Sign Out</span>
+    </a>
+</li>
             </ul>
         </div>
 
@@ -97,7 +100,9 @@
                 </div>
 
                 <div class="user">
+                    <a href="{{ route('profile.edit') }}">
                     <img src="{{ asset('assets/imgs/userIcon.png') }}" alt="">
+                </a>
                 </div>
             </div>
 
