@@ -7,10 +7,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard2', function () {
-    return view('dashboard2');
-})->middleware(['auth', 'verified'])->name('dashboard2');
-
 Route::get('/clients', function () {
     return view('clients');
 })->middleware(['auth', 'verified'])->name('clients');
@@ -26,10 +22,6 @@ Route::get('/processos', function () {
 Route::get('/processosBS', function () {
     return view('processosBS');
 })->middleware(['auth', 'verified'])->name('processosBS');
-
-Route::get('/processosPend', function () {
-    return view('processosPend');
-})->middleware(['auth', 'verified'])->name('processosPend');
 
 Route::get('/processosFal', function () {
     return view('processosFal');

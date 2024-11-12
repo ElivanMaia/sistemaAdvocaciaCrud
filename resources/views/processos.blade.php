@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Agendamento</title>
+    <title>Processos</title>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
@@ -25,7 +25,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard2') }}">
+                    <a href="{{ route('dashboard') }}">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
@@ -61,15 +61,6 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('processosPend') }}">
-                        <span class="icon">
-                        <img src="{{ asset('assets/imgs/pendantProcess.png') }}" alt="Logo" width="32" height="32">
-                        </span>
-                        <span class="title">Processos Pendentes</span>
-                    </a>
-                </li>
-
-                <li>
                     <a href="{{ route('processosBS') }}">
                         <span class="icon">
                         <img src="{{ asset('assets/imgs/successProcess.png') }}" alt="Logo" width="32" height="32">
@@ -94,7 +85,7 @@
                         </span>
                         <span class="title">Configurações</span>
                     </a>
-                </li>    
+                </li>
 
                 <li>
     <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
