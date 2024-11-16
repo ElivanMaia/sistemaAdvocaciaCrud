@@ -61,23 +61,14 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('processosBS') }}">
+                    <a href="{{ route('advogados') }}">
                         <span class="icon">
                         <img src="{{ asset('assets/imgs/successProcess.png') }}" alt="Logo" width="32" height="32">
                         </span>
-                        <span class="title">Processos Bem-sucedidos</span>
+                        <span class="title">Advogados</span>
                     </a>
                 </li>
-
-                <li>
-                    <a href="{{ route('processosFal') }}">
-                        <span class="icon">
-                        <img src="{{ asset('assets/imgs/noSucessProcess.png') }}" alt="Logo" width="32" height="32">
-                        </span>
-                        <span class="title">Processos Falhos</span>
-                    </a>
-                </li>
-
+ 
                 <li>
                     <a href="{{ route('profile.edit') }}">
                         <span class="icon">
@@ -120,7 +111,7 @@
                 <div class="card">
                     <div>
                         <div class="numbers">1,504</div>
-                        <div class="cardName">Daily Views</div>
+                        <div class="cardName">N. de Clientes</div>
                     </div>
 
                     <div class="iconBx">
@@ -166,27 +157,31 @@
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Recent Orders</h2>
+                        <h2>Dados dos Clientes</h2>
                         <a href="#" class="btn">View All</a>
                     </div>
 
                     <table>
                         <thead>
                             <tr>
-                                <td>Name</td>
-                                <td>Price</td>
-                                <td>Payment</td>
-                                <td>Status</td>
+                                <td>Nome</td>
+                                <td>Email</td>
+                                <td>Telefone</td>
+                                <td>CPF</td>
                             </tr>
                         </thead>
 
                         <tbody>
+                            @foreach ($clientes as $cliente)
                             <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
+                                <td> {{ $cliente->nome }} </td>
+                                <td> {{ $cliente->email }} </td>
+                                <td> {{ $cliente->telefone }} </td>
+                                <td> {{ $cliente->cpf }} </td>
+                                <td> {{ $cliente->data_nasc }} </td>
+                                <td> <a href="{{ route('clients.edit', ['cliente' => $cliente->id]) }}">Editar</a> <button><a href=""></a>Deletar</button> </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -194,15 +189,16 @@
                 <!-- ================= New Customers ================ -->
                 <div class="recentCustomers">
                     <div class="cardHeader">
-                        <h2>Recent Customers</h2>
+                        <h2>Clientes Recentes</h2>
                     </div>
                     <table>
+                    @foreach ($clientes as $cliente)
                         <tr>
-
                             <td>
-                                <h4>David <br> <span>Italy</span></h4>
+                                <h4>{{ $cliente->nome}}<br> <span>Novo</span></h4>
                             </td>
                         </tr>
+                        @endforeach
                     </table>
                 </div>
             </div>

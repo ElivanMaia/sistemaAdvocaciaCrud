@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Processos Bem-sucedidos</title>
+    <title>Advogados</title>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
@@ -61,20 +61,11 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('processosBS') }}">
+                    <a href="{{ route('advogados') }}">
                         <span class="icon">
                         <img src="{{ asset('assets/imgs/successProcess.png') }}" alt="Logo" width="32" height="32">
                         </span>
-                        <span class="title">Processos Bem-sucedidos</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('processosFal') }}">
-                        <span class="icon">
-                        <img src="{{ asset('assets/imgs/noSucessProcess.png') }}" alt="Logo" width="32" height="32">
-                        </span>
-                        <span class="title">Processos Falhos</span>
+                        <span class="title">Advogados</span>
                     </a>
                 </li>
 

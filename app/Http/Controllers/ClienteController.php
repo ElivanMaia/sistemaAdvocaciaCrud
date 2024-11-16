@@ -3,15 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cliente;
 
-class ProcessosController extends Controller
+class ClienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public readonly Cliente $cliente;
+
+    public function __construct()
+    {
+        $this->cliente = new Cliente();
+    }
+
+
     public function index()
     {
-        //
+        $clientes = $this->cliente->All();
+
+        return view ('clients', ['clientes' => $clientes]);
     }
 
     /**
@@ -41,9 +49,9 @@ class ProcessosController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Cliente $cliente)
     {
-        //
+        return view('clients_edit', ['cliente' => $cliente]);
     }
 
     /**
@@ -51,7 +59,14 @@ class ProcessosController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $updated = $this->cliente->where('id', $id)->update($request->except(['_token','_method']));
+
+        if($updated)
+        {
+            return redirect()->back()->with('message', 'Dados atualizados com sucesso');
+        }
+
+        return redirect()->back()->with('Error', 'Erro ao atualizar dados');
     }
 
     /**

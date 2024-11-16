@@ -17,7 +17,7 @@
     <div style="background-image: url('assets/imgs/background.png')">
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
-            SSSSSS
+            Sistema de Agendamento
             <div>
                 <a href="/">
                     <img src="assets/imgs/blackLogo.png" alt="LOGO" class="w-20 h-20 fill-current" />

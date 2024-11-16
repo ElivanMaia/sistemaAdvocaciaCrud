@@ -61,23 +61,14 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('processosBS') }}">
+                    <a href="{{ route('advogados') }}">
                         <span class="icon">
                         <img src="{{ asset('assets/imgs/successProcess.png') }}" alt="Logo" width="32" height="32">
                         </span>
-                        <span class="title">Processos Bem-sucedidos</span>
+                        <span class="title">Advogados</span>
                     </a>
                 </li>
-
-                <li>
-                    <a href="{{ route('processosFal') }}">
-                        <span class="icon">
-                        <img src="{{ asset('assets/imgs/noSucessProcess.png') }}" alt="Logo" width="32" height="32">
-                        </span>
-                        <span class="title">Processos Falhos</span>
-                    </a>
-                </li>
-
+ 
                 <li>
                     <a href="{{ route('profile.edit') }}">
                         <span class="icon">
