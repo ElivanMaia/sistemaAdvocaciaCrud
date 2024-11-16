@@ -27,7 +27,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+        return view('clients_create');
     }
 
     /**
@@ -35,7 +35,20 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $created = $this->cliente->create([
+            'nome' => $request->input('nome'),
+            'email' => $request->input('email'),
+            'telefone' => $request->input('telefone'),
+            'cpf' => $request->input('cpf'),
+            'data_nasc' => $request->input('data_nasc'),
+        ]);
+
+        if($created)
+        {
+            return redirect()->back()->with('message', 'Cliente cadastrado com sucesso');
+        }
+
+        return redirect()->back()->with('message', 'Erro ao cadastrar cliente');
     }
 
     /**
@@ -66,14 +79,22 @@ class ClienteController extends Controller
             return redirect()->back()->with('message', 'Dados atualizados com sucesso');
         }
 
-        return redirect()->back()->with('Error', 'Erro ao atualizar dados');
+        return redirect()->back()->with('message', 'Erro ao atualizar dados');
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        //
+{
+    $cliente = $this->cliente->find($id);
+
+    if ($cliente) {
+        $cliente->delete();
+        return redirect()->route('clients')->with('message', 'Cliente excluído com sucesso!');
     }
+
+    return redirect()->route('clients')->with('message', 'Erro ao excluir cliente.');
+}
+
 }

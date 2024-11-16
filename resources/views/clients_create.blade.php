@@ -14,33 +14,30 @@
         {{ session()->get('message') }}
         @endif
         <h2>Editar Cliente</h2>
-        <form action="{{ route('clients.update', ['cliente' => $cliente->id]) }}" method="POST">
+        <form action="{{ route('clients.store') }}" method="POST">
     @csrf
-    @method('PUT')
-    <input type="hidden" name="_method" value="PUT">
     <div class="mb-2">
         <label for="nome" class="form-label">Nome</label>
-        <input type="text" class="form-control" id="nome" name="nome" value="{{ $cliente->nome }}" required>
+        <input type="text" class="form-control" id="nome" name="nome" required>
     </div>
-
     <div class="mb-2">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name="email" value="{{ $cliente->email }}" required>
+        <input type="email" class="form-control" id="email" name="email" required>
     </div>
 
     <div class="mb-2">
         <label for="telefone" class="form-label">Telefone</label>
-        <input type="text" class="form-control" id="telefone" name="telefone" value="{{ $cliente->telefone }}" required>
+        <input type="text" class="form-control" id="telefone" name="telefone" required>
     </div>
 
     <div class="mb-2">
         <label for="cpf" class="form-label">CPF</label>
-        <input type="text" class="form-control" id="cpf" name="cpf" value="{{ $cliente->cpf }}" required>
+        <input type="text" class="form-control" id="cpf" name="cpf" required>
     </div>
 
     <div class="mb-2">
         <label for="data_nasc" class="form-label">Data de Nascimento</label>
-        <input type="date" class="form-control" id="data_nasc" name="data_nasc" value="{{ $cliente->data_nasc }}" required>
+        <input type="date" class="form-control" id="data_nasc" name="data_nasc" required>
     </div>
 
     <button type="submit" class="btn btn-primary">Salvar alterações</button>

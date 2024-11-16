@@ -8,6 +8,8 @@
     <title>Clientes</title>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJv+u5O1/21t9b/aK4L5e+zg5n52ZZkY94kdDmg1VV5zz00Ch2BStQKpfFJs" crossorigin="anonymous">
 
 </head>
 
@@ -158,7 +160,7 @@
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Dados dos Clientes</h2>
-                        <a href="#" class="btn">View All</a>
+                        <a href="{{ route('clients.create') }}" class="btn">View All</a>
                     </div>
 
                     <table>
@@ -179,7 +181,14 @@
                                 <td> {{ $cliente->telefone }} </td>
                                 <td> {{ $cliente->cpf }} </td>
                                 <td> {{ $cliente->data_nasc }} </td>
-                                <td> <a href="{{ route('clients.edit', ['cliente' => $cliente->id]) }}">Editar</a> <button><a href=""></a>Deletar</button> </td>
+                                <td>
+                                <a href="{{ route('clients.edit', ['cliente' => $cliente->id]) }}">Editar</a>
+                                <form action="{{ route('clients.destroy', ['cliente' => $cliente->id]) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Deletar</button>
+                                </form>
+                                </td>                         
                             </tr>
                             @endforeach
                         </tbody>
@@ -207,10 +216,11 @@
 
     <!-- =========== Scripts =========  -->
     <script src="../js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    
 </body>
-
 </html>
