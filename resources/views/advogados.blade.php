@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advogados</title>
+    <title>Clientes</title>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJv+u5O1/21t9b/aK4L5e+zg5n52ZZkY94kdDmg1VV5zz00Ch2BStQKpfFJs" crossorigin="anonymous">
 
 </head>
 
@@ -68,7 +70,7 @@
                         <span class="title">Advogados</span>
                     </a>
                 </li>
-
+ 
                 <li>
                     <a href="{{ route('profile.edit') }}">
                         <span class="icon">
@@ -111,7 +113,7 @@
                 <div class="card">
                     <div>
                         <div class="numbers">1,504</div>
-                        <div class="cardName">Daily Views</div>
+                        <div class="cardName">N. de Clientes</div>
                     </div>
 
                     <div class="iconBx">
@@ -157,27 +159,39 @@
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Recent Orders</h2>
-                        <a href="#" class="btn">View All</a>
+                        <h2>Dados dos Clientes</h2>
+                        <a href="{{ route('advogados.create') }}" class="btn">View All</a>
                     </div>
 
                     <table>
                         <thead>
                             <tr>
-                                <td>Name</td>
-                                <td>Price</td>
-                                <td>Payment</td>
-                                <td>Status</td>
+                                <td>Nome</td>
+                                <td>Email</td>
+                                <td>Telefone</td>
+                                <td>CPF</td>
+                                <td>Área de atuação</td>
                             </tr>
                         </thead>
 
                         <tbody>
+                            @foreach ($advogados as $advogado)
                             <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
+                                <td> {{ $advogado->nome }} </td>
+                                <td> {{ $advogado->email }} </td>
+                                <td> {{ $advogado->telefone }} </td>
+                                <td> {{ $advogado->cpf }} </td>
+                                <td> {{ $advogado->area_atuacao }} </td>
+                                <td>
+                                <a href="{{ route('advogados.edit', ['advogado' => $advogado->id]) }}">Editar</a>
+                                <form action="{{ route('advogados.destroy', ['advogado' => $advogado->id]) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Deletar</button>
+                                </form>
+                                </td>                         
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -185,15 +199,16 @@
                 <!-- ================= New Customers ================ -->
                 <div class="recentCustomers">
                     <div class="cardHeader">
-                        <h2>Recent Customers</h2>
+                        <h2>Clientes Recentes</h2>
                     </div>
                     <table>
+                    @foreach ($advogados as $advogado)
                         <tr>
-
                             <td>
-                                <h4>David <br> <span>Italy</span></h4>
+                                <h4>{{ $advogado->nome}}<br> <span>Novo</span></h4>
                             </td>
                         </tr>
+                        @endforeach
                     </table>
                 </div>
             </div>
@@ -202,10 +217,11 @@
 
     <!-- =========== Scripts =========  -->
     <script src="../js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    
 </body>
-
 </html>

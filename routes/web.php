@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AdvogadosController;
+use App\Http\Controllers\AdvogadoController;
 use App\Http\Controllers\AgendamentosController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProcessosController;
@@ -45,6 +45,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clients.destroy'); 
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/advogados', [AdvogadoController::class, 'index'])->name('advogados');
+    Route::get('/advogados/create', [AdvogadoController::class, 'create'])->name('advogados.create');
+    Route::post('/advogados', [AdvogadoController::class, 'store'])->name('advogados.store');  
+    Route::post('/advogados/{advogado}', [AdvogadoController::class, 'show'])->name('advogados.show');  
+    Route::get('/advogados/{advogado}/edit', [AdvogadoController::class, 'edit'])->name('advogados.edit');
+    Route::put('/advogados/{advogado}', [AdvogadoController::class, 'update'])->name('advogados.update');
+    Route::delete('/advogados/{advogado}', [AdvogadoController::class, 'destroy'])->name('advogados.destroy'); 
+});
 
 
 require __DIR__.'/auth.php';
