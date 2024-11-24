@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Cliente</title>
-    <!-- Link para o CSS do Bootstrap -->
+    <title>Cadastrar Cliente</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div style="background-image: url('assets/imgs/background.png')">
     <div class="container mt-5">
-        @if (session()->has('message'))
-        {{ session()->get('message') }}
+    @if (session()->has('message'))
+            <div class="alert alert-info">
+                {{ session()->get('message') }}
+            </div>
         @endif
-        <h2>Editar Cliente</h2>
+
+        <h2>Cadastrar Cliente</h2>
         <form action="{{ route('clients.store') }}" method="POST">
     @csrf
     <div class="mb-2">
@@ -48,7 +50,6 @@
     </div>
 </div>
 
-    <!-- Link para os scripts do Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

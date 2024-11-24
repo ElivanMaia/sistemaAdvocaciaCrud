@@ -52,16 +52,7 @@
                         <span class="title">Agendamentos</span>
                     </a>
                 </li>
-
-                <li>
-                    <a href="{{ route('processos') }}">
-                        <span class="icon">
-                        <img src="{{ asset('assets/imgs/process.png') }}" alt="Logo" width="32" height="32">
-                        </span>
-                        <span class="title">Processos</span>
-                    </a>
-                </li>
-
+ 
                 <li>
                     <a href="{{ route('advogados') }}">
                         <span class="icon">
@@ -160,7 +151,7 @@
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Dados dos Clientes</h2>
-                        <a href="{{ route('clients.create') }}" class="btn">View All</a>
+                        <a href="{{ route('clients.create') }}" class="btn">Cadastrar</a>
                     </div>
 
                     <table>
@@ -182,11 +173,11 @@
                                 <td> {{ $cliente->cpf }} </td>
                                 <td> {{ $cliente->data_nasc }} </td>
                                 <td>
-                                <a href="{{ route('clients.edit', ['cliente' => $cliente->id]) }}">Editar</a>
+                                <a class="editbtn" href="{{ route('clients.edit', ['cliente' => $cliente->id]) }}">Editar</a>
                                 <form action="{{ route('clients.destroy', ['cliente' => $cliente->id]) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Deletar</button>
+                                <button type="submit" class="deletebtn">Deletar</button>
                                 </form>
                                 </td>                         
                             </tr>

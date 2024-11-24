@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdvogadoController;
-use App\Http\Controllers\AgendamentosController;
+use App\Http\Controllers\AgendamentoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProcessosController;
 use App\Http\Controllers\DashboardController;
@@ -11,14 +11,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/advogados', function () {
-    return view('advogados');
-})->middleware(['auth', 'verified'])->name('advogados');
-
-Route::get('/agendamentos', function () {
-    return view('agendamentos');
-})->middleware(['auth', 'verified'])->name('agendamentos');
 
 Route::get('/processos', function () {
     return view('processos');
@@ -54,6 +46,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/advogados/{advogado}', [AdvogadoController::class, 'update'])->name('advogados.update');
     Route::delete('/advogados/{advogado}', [AdvogadoController::class, 'destroy'])->name('advogados.destroy'); 
 });
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/agendamentos', [AgendamentoController::class, 'index'])->name('agendamentos');
+    Route::get('/agendamentos/create', [AgendamentoController::class, 'create'])->name('agendamentos.create');
+    Route::post('/agendamentos', [AgendamentoController::class, 'store'])->name('agendamentos.store');  
+    Route::post('/agendamentos/{agendamento}', [AgendamentoController::class, 'show'])->name('agendamentos.show');  
+    Route::get('/agendamentos/{agendamento}/edit', [AgendamentoController::class, 'edit'])->name('agendamentos.edit');
+    Route::put('/agendamentos/{agendamento}', [AgendamentoController::class, 'update'])->name('agendamentos.update');
+    Route::delete('/agendamentos/{agendamento}', [AgendamentoController::class, 'destroy'])->name('agendamentos.destroy'); 
+});
+
 
 
 require __DIR__.'/auth.php';

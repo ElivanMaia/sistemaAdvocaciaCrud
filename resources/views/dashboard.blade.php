@@ -50,16 +50,7 @@
                         <span class="title">Agendamentos</span>
                     </a>
                 </li>
-
-                <li>
-                    <a href="{{ route('processos') }}">
-                        <span class="icon">
-                        <img src="{{ asset('assets/imgs/process.png') }}" alt="Logo" width="32" height="32">
-                        </span>
-                        <span class="title">Processos</span>
-                    </a>
-                </li>
-
+ 
                 <li>
                     <a href="{{ route('advogados') }}">
                         <span class="icon">

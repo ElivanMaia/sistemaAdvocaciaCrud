@@ -50,16 +50,7 @@
                         <span class="title">Agendamentos</span>
                     </a>
                 </li>
-
-                <li>
-                    <a href="{{ route('processos') }}">
-                        <span class="icon">
-                        <img src="{{ asset('assets/imgs/process.png') }}" alt="Logo" width="32" height="32">
-                        </span>
-                        <span class="title">Processos</span>
-                    </a>
-                </li>
-
+ 
                 <li>
                     <a href="{{ route('advogados') }}">
                         <span class="icon">
@@ -157,27 +148,43 @@
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Recent Orders</h2>
-                        <a href="#" class="btn">View All</a>
+                    @if (session()->has('message'))
+            <div class="alert alert-info">
+                {{ session()->get('message') }}
+            </div>
+        @endif
+                        <h2>Agendamentos</h2>
+                        <a href="{{ route('agendamentos.create') }}" class="btn">Novo Agendamento</a>    
                     </div>
 
                     <table>
                         <thead>
                             <tr>
-                                <td>Name</td>
-                                <td>Price</td>
-                                <td>Payment</td>
-                                <td>Status</td>
+                                <td>Data</td>
+                                <td>Descrição</td>
+                                <td>Cliente</td>
+                                <td>Advogado</td>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
-                            </tr>
+                        @foreach ($agendamentos as $agendamento)
+                        <tr>
+                            <td>{{ $agendamento->data }}</td>
+                            <td>{{ $agendamento->descricao }}</td>
+                            <td>{{ $agendamento->cliente->nome }}</td>
+                            <td>{{ $agendamento->advogado->nome }}</td>
+                            <td>
+                                <a href="{{ route('agendamentos.edit', $agendamento->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                                <form action="{{ route('agendamentos.destroy', $agendamento->id) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" 
+                                            onclick="return confirm('Tem certeza que deseja excluir este agendamento?')">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -185,15 +192,14 @@
                 <!-- ================= New Customers ================ -->
                 <div class="recentCustomers">
                     <div class="cardHeader">
-                        <h2>Recent Customers</h2>
+                        <h2>Agendamentos</h2>
                     </div>
                     <table>
-                        <tr>
-
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
+                    @foreach ($agendamentos as $agendamento)
+                <tr>
+                    <td>{{ $agendamento->data }} {{ $agendamento->cliente->nome }}</td>
+                </tr>
+            @endforeach
                     </table>
                 </div>
             </div>

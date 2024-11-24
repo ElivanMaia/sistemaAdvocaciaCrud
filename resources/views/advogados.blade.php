@@ -5,13 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clientes</title>
+    <title>Advogados</title>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJv+u5O1/21t9b/aK4L5e+zg5n52ZZkY94kdDmg1VV5zz00Ch2BStQKpfFJs" crossorigin="anonymous">
-
-</head>
+   </head>
 
 <body>
     <!-- =============== Navigation ================ -->
@@ -50,15 +48,6 @@
                         <img src="{{ asset('assets/imgs/calendar.png') }}" alt="Logo" width="32" height="32">
                         </span>
                         <span class="title">Agendamentos</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('processos') }}">
-                        <span class="icon">
-                        <img src="{{ asset('assets/imgs/process.png') }}" alt="Logo" width="32" height="32">
-                        </span>
-                        <span class="title">Processos</span>
                     </a>
                 </li>
 
@@ -159,8 +148,8 @@
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Dados dos Clientes</h2>
-                        <a href="{{ route('advogados.create') }}" class="btn">View All</a>
+                        <h2>Dados dos Advogados</h2>
+                        <a href="{{ route('advogados.create') }}" class="btn">Cadastrar</a>
                     </div>
 
                     <table>
@@ -183,11 +172,11 @@
                                 <td> {{ $advogado->cpf }} </td>
                                 <td> {{ $advogado->area_atuacao }} </td>
                                 <td>
-                                <a href="{{ route('advogados.edit', ['advogado' => $advogado->id]) }}">Editar</a>
+                                <a class="editbtn" href="{{ route('advogados.edit', ['advogado' => $advogado->id]) }}">Editar</a>
                                 <form action="{{ route('advogados.destroy', ['advogado' => $advogado->id]) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Deletar</button>
+                                <button type="submit" class="deletebtn">Deletar</button>
                                 </form>
                                 </td>                         
                             </tr>
@@ -217,7 +206,7 @@
 
     <!-- =========== Scripts =========  -->
     <script src="../js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Bundle with Popper -->
 
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

@@ -11,7 +11,9 @@
 <div style="background-image: url('assets/imgs/background.png')">
     <div class="container mt-5">
         @if (session()->has('message'))
-        {{ session()->get('message') }}
+            <div class="alert alert-info">
+                {{ session()->get('message') }}
+            </div>
         @endif
         <h2>Editar Cliente</h2>
         <form action="{{ route('clients.update', ['cliente' => $cliente->id]) }}" method="POST">
