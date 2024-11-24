@@ -8,7 +8,7 @@
     <title>Início</title>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -101,41 +101,41 @@
             <div class="cardBox">
                 <div class="card">
                     <div>
-                        <div class="numbers">1,504</div>
-                        <div class="cardName">Daily Views</div>
+                        <div class="numbers">{{ $clientesCount }}</div>
+                        <div class="cardName">Clientes</div>
                     </div>
 
                     <div class="iconBx">
-                        <ion-icon name="eye-outline"></ion-icon>
+                        <ion-icon name="people-outline"></ion-icon>
                     </div>
                 </div>
 
                 <div class="card">
                     <div>
-                        <div class="numbers">80</div>
-                        <div class="cardName">Sales</div>
+                        <div class="numbers">{{ $advogadosCount }}</div>
+                        <div class="cardName">Advogados</div>
                     </div>
 
                     <div class="iconBx">
-                        <ion-icon name="cart-outline"></ion-icon>
+                        <ion-icon name="hammer-outline"></ion-icon>
                     </div>
                 </div>
 
                 <div class="card">
                     <div>
-                        <div class="numbers">284</div>
-                        <div class="cardName">Comments</div>
+                        <div class="numbers">{{ $agendamentosCount }}</div>
+                        <div class="cardName">Agendamentos</div>
                     </div>
 
                     <div class="iconBx">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                        <ion-icon name="calendar-outline"></ion-icon>
                     </div>
                 </div>
 
                 <div class="card">
                     <div>
-                        <div class="numbers">$7,842</div>
-                        <div class="cardName">Earning</div>
+                        <div class="numbers">R$ {{ number_format($lucro) }}</div>
+                        <div class="cardName">Lucro</div>
                     </div>
 
                     <div class="iconBx">
@@ -145,51 +145,72 @@
             </div>
 
             <!-- ================ Order Details List ================= -->
-            <div class="details">
-                <div class="recentOrders">
-                    <div class="cardHeader">
-                        <h2>Recent Orders</h2>
-                        <a href="#" class="btn">View All</a>
-                    </div>
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Name</td>
-                                <td>Price</td>
-                                <td>Payment</td>
-                                <td>Status</td>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- ================= New Customers ================ -->
-                <div class="recentCustomers">
-                    <div class="cardHeader">
-                        <h2>Recent Customers</h2>
-                    </div>
-                    <table>
-                        <tr>
-
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
+            <div class="container">
+        <h2>Métricas de Desempenho</h2>
+        <canvas id="metricsChart" width="400" height="200"></canvas>
     </div>
+
+    <script>
+        // Dados dinâmicos (você pode substituí-los pelos valores reais do backend)
+        const clientesCount = {{ $clientesCount }};
+        const advogadosCount = {{ $advogadosCount }};
+        const agendamentosCount = {{ $agendamentosCount }};
+        const lucro = {{ $lucro }};
+
+        // Configuração do Gráfico
+        const ctx = document.getElementById('metricsChart').getContext('2d');
+        const metricsChart = new Chart(ctx, {
+            type: 'bar', // Tipo do gráfico
+            data: {
+                labels: ['Clientes', 'Advogados', 'Agendamentos', 'Lucro (em milhares)'], // Nomes das categorias
+                datasets: [{
+                    label: 'Métricas',
+                    data: [clientesCount, advogadosCount, agendamentosCount, lucro / 1000], // Valores
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.5)', // Azul para Clientes
+                        'rgba(153, 102, 255, 0.5)', // Roxo para Advogados
+                        'rgba(255, 159, 64, 0.5)', // Laranja para Agendamentos
+                        'rgba(255, 99, 132, 0.5)'  // Vermelho para Lucro
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top', // Posição da legenda
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                if (context.label === 'Lucro (em milhares)') {
+                                    return `Lucro: R$ ${(context.raw * 1000).toLocaleString('pt-BR')}`;
+                                }
+                                return `${context.label}: ${context.raw}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Valores'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 
     <!-- =========== Scripts =========  -->
     <script src="../js/main.js"></script>

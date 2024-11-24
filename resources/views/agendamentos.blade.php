@@ -101,41 +101,41 @@
             <div class="cardBox">
                 <div class="card">
                     <div>
-                        <div class="numbers">1,504</div>
-                        <div class="cardName">Daily Views</div>
+                        <div class="numbers">{{ $clientesCount }}</div>
+                        <div class="cardName">Clientes</div>
                     </div>
 
                     <div class="iconBx">
-                        <ion-icon name="eye-outline"></ion-icon>
+                        <ion-icon name="people-outline"></ion-icon>
                     </div>
                 </div>
 
                 <div class="card">
                     <div>
-                        <div class="numbers">80</div>
-                        <div class="cardName">Sales</div>
+                        <div class="numbers">{{ $advogadosCount }}</div>
+                        <div class="cardName">Advogados</div>
                     </div>
 
                     <div class="iconBx">
-                        <ion-icon name="cart-outline"></ion-icon>
+                        <ion-icon name="hammer-outline"></ion-icon>
                     </div>
                 </div>
 
                 <div class="card">
                     <div>
-                        <div class="numbers">284</div>
-                        <div class="cardName">Comments</div>
+                        <div class="numbers">{{ $agendamentosCount }}</div>
+                        <div class="cardName">Agendamentos</div>
                     </div>
 
                     <div class="iconBx">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                        <ion-icon name="calendar-outline"></ion-icon>
                     </div>
                 </div>
 
                 <div class="card">
                     <div>
-                        <div class="numbers">$7,842</div>
-                        <div class="cardName">Earning</div>
+                        <div class="numbers">R$ {{ number_format($lucro) }}</div>
+                        <div class="cardName">Lucro</div>
                     </div>
 
                     <div class="iconBx">
@@ -175,11 +175,11 @@
                             <td>{{ $agendamento->cliente->nome }}</td>
                             <td>{{ $agendamento->advogado->nome }}</td>
                             <td>
-                                <a href="{{ route('agendamentos.edit', $agendamento->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                                <a href="{{ route('agendamentos.edit', $agendamento->id) }}" class="editbtn">Editar</a>
                                 <form action="{{ route('agendamentos.destroy', $agendamento->id) }}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" 
+                                        <button type="submit" class="deletebtn" 
                                             onclick="return confirm('Tem certeza que deseja excluir este agendamento?')">Excluir</button>
                                 </form>
                             </td>

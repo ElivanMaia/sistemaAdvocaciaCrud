@@ -103,41 +103,41 @@
             <div class="cardBox">
                 <div class="card">
                     <div>
-                        <div class="numbers">1,504</div>
-                        <div class="cardName">N. de Clientes</div>
+                        <div class="numbers">{{ $clientesCount }}</div>
+                        <div class="cardName">Clientes</div>
                     </div>
 
                     <div class="iconBx">
-                        <ion-icon name="eye-outline"></ion-icon>
+                        <ion-icon name="people-outline"></ion-icon>
                     </div>
                 </div>
 
                 <div class="card">
                     <div>
-                        <div class="numbers">80</div>
-                        <div class="cardName">Sales</div>
+                        <div class="numbers">{{ $advogadosCount }}</div>
+                        <div class="cardName">Advogados</div>
                     </div>
 
                     <div class="iconBx">
-                        <ion-icon name="cart-outline"></ion-icon>
+                        <ion-icon name="hammer-outline"></ion-icon>
                     </div>
                 </div>
 
                 <div class="card">
                     <div>
-                        <div class="numbers">284</div>
-                        <div class="cardName">Comments</div>
+                        <div class="numbers">{{ $agendamentosCount }}</div>
+                        <div class="cardName">Agendamentos</div>
                     </div>
 
                     <div class="iconBx">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                        <ion-icon name="calendar-outline"></ion-icon>
                     </div>
                 </div>
 
                 <div class="card">
                     <div>
-                        <div class="numbers">$7,842</div>
-                        <div class="cardName">Earning</div>
+                        <div class="numbers">R$ {{ number_format($lucro) }}</div>
+                        <div class="cardName">Lucro</div>
                     </div>
 
                     <div class="iconBx">

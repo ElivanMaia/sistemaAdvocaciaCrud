@@ -14,12 +14,11 @@ class ClienteController extends Controller
         $this->cliente = new Cliente();
     }
 
-
     public function index()
     {
-        $clientes = $this->cliente->All();
+        $clientes = $this->cliente->all();
 
-        return view ('clients', ['clientes' => $clientes]);
+        return view('clients', ['clientes' => $clientes]);
     }
 
     /**
@@ -35,20 +34,23 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $created = $this->cliente->create([
-            'nome' => $request->input('nome'),
-            'email' => $request->input('email'),
-            'telefone' => $request->input('telefone'),
-            'cpf' => $request->input('cpf'),
-            'data_nasc' => $request->input('data_nasc'),
+        // Validação dos dados
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'email' => 'required|email|unique:clientes,email',
+            'telefone' => 'nullable|string|max:20',
+            'cpf' => 'required|string|max:14|unique:clientes,cpf',
+            'data_nasc' => 'nullable|date',
         ]);
 
-        if($created)
-        {
-            return redirect()->back()->with('message', 'Cliente cadastrado com sucesso');
+        // Criação do cliente
+        $created = $this->cliente->create($validated);
+
+        if ($created) {
+            return redirect()->back()->with('message', 'Cliente cadastrado com sucesso!');
         }
 
-        return redirect()->back()->with('message', 'Erro ao cadastrar cliente');
+        return redirect()->back()->with('message', 'Erro ao cadastrar cliente.');
     }
 
     /**
@@ -72,29 +74,37 @@ class ClienteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $updated = $this->cliente->where('id', $id)->update($request->except(['_token','_method']));
+        // Validação dos dados
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'email' => "required|email|unique:clientes,email,$id",
+            'telefone' => 'nullable|string|max:20',
+            'cpf' => "required|string|max:14|unique:clientes,cpf,$id",
+            'data_nasc' => 'nullable|date',
+        ]);
 
-        if($updated)
-        {
-            return redirect()->back()->with('message', 'Dados atualizados com sucesso');
+        // Atualização do cliente
+        $updated = $this->cliente->where('id', $id)->update($validated);
+
+        if ($updated) {
+            return redirect()->back()->with('message', 'Dados atualizados com sucesso!');
         }
 
-        return redirect()->back()->with('message', 'Erro ao atualizar dados');
+        return redirect()->back()->with('message', 'Erro ao atualizar dados.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-{
-    $cliente = $this->cliente->find($id);
+    {
+        $cliente = $this->cliente->find($id);
 
-    if ($cliente) {
-        $cliente->delete();
-        return redirect()->route('clients')->with('message', 'Cliente excluído com sucesso!');
+        if ($cliente) {
+            $cliente->delete();
+            return redirect()->route('clients')->with('message', 'Cliente excluído com sucesso!');
+        }
+
+        return redirect()->route('clients')->with('message', 'Erro ao excluir cliente.');
     }
-
-    return redirect()->route('clients')->with('message', 'Erro ao excluir cliente.');
-}
-
 }

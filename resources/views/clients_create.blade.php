@@ -15,6 +15,14 @@
             </div>
         @endif
 
+        @if ($errors->any())
+            @foreach($errors->all() as $error)
+            <div class="alert alert-danger">
+                {{ $error }}
+            </div>
+            @endforeach
+        @endif
+
         <h2>Cadastrar Cliente</h2>
         <form action="{{ route('clients.store') }}" method="POST">
     @csrf

@@ -15,6 +15,15 @@
                 {{ session()->get('message') }}
             </div>
         @endif
+
+        @if ($errors->any())
+            @foreach($errors->all() as $error)
+            <div class="alert alert-danger">
+                {{ $error }}
+            </div>
+            @endforeach
+        @endif
+
         <h2>Editar Cliente</h2>
         <form action="{{ route('clients.update', ['cliente' => $cliente->id]) }}" method="POST">
     @csrf
