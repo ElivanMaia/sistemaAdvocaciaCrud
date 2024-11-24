@@ -470,6 +470,8 @@ body {
 
 /* classes personalizadas */
 
+    /*Cards*/
+
 .deletebtn {
   display: inline-block;
   font-weight: 400;
@@ -521,4 +523,22 @@ body {
 .editbtn:focus {
   outline: none;
   box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.5); 
+}
+
+  /*Cards*/
+
+.alert-info {
+  background-color: #d1ecf1; 
+  color: #0c5460; 
+  border-color: #bee5eb; 
+  padding: 1rem; 
+  border-radius: 0.25rem; 
+}
+
+.alert-error {
+  background-color: #f8d7da; 
+  color: #721c24; 
+  border-color: #f5c6cb; 
+  padding: 1rem; 
+  border-radius: 0.25rem; 
 }

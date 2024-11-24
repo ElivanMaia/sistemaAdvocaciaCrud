@@ -31,7 +31,7 @@
             
             <div class="mb-3">
                 <label for="data" class="form-label">Data</label>
-                <input type="date" class="form-control" id="data" name="data" value="{{ $agendamento->data }}" required>
+                <input type="datetime-local" class="form-control" id="data" name="data" value="{{ $agendamento->data }}" required>
             </div>
             <div class="mb-3">
                 <label for="descrição" class="form-label">Descrição</label>

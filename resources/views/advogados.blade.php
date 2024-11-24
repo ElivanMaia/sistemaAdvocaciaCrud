@@ -147,6 +147,11 @@
             <!-- ================ Order Details List ================= -->
             <div class="details">
                 <div class="recentOrders">
+                @if (session()->has('message'))
+            <div class="alert-info">
+                {{ session()->get('message') }}
+            </div>
+        @endif
                     <div class="cardHeader">
                         <h2>Dados dos Advogados</h2>
                         <a href="{{ route('advogados.create') }}" class="btn">Cadastrar</a>
@@ -188,7 +193,7 @@
                 <!-- ================= New Customers ================ -->
                 <div class="recentCustomers">
                     <div class="cardHeader">
-                        <h2>Clientes Recentes</h2>
+                        <h2>Advogados Recentes</h2>
                     </div>
                     <table>
                     @foreach ($advogados as $advogado)

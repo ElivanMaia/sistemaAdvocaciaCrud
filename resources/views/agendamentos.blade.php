@@ -147,12 +147,12 @@
             <!-- ================ Order Details List ================= -->
             <div class="details">
                 <div class="recentOrders">
-                    <div class="cardHeader">
                     @if (session()->has('message'))
-            <div class="alert alert-info">
+            <div class="alert-info">
                 {{ session()->get('message') }}
             </div>
         @endif
+                    <div class="cardHeader">
                         <h2>Agendamentos</h2>
                         <a href="{{ route('agendamentos.create') }}" class="btn">Novo Agendamento</a>    
                     </div>

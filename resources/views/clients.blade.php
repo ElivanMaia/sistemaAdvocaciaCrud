@@ -149,6 +149,11 @@
             <!-- ================ Order Details List ================= -->
             <div class="details">
                 <div class="recentOrders">
+                @if (session()->has('message'))
+            <div class="alert-info">
+                {{ session()->get('message') }}
+            </div>
+        @endif
                     <div class="cardHeader">
                         <h2>Dados dos Clientes</h2>
                         <a href="{{ route('clients.create') }}" class="btn">Cadastrar</a>
