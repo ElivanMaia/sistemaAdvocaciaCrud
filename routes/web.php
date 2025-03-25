@@ -3,18 +3,14 @@
 use App\Http\Controllers\AdvogadoController;
 use App\Http\Controllers\AgendamentoController;
 use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\ProcessosController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProcessoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/processos', function () {
-    return view('processos');
-})->middleware(['auth', 'verified'])->name('processos');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -57,6 +53,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/agendamentos/{agendamento}', [AgendamentoController::class, 'destroy'])->name('agendamentos.destroy'); 
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/processos', [ProcessoController::class, 'index'])->name('processos');
+    Route::get('/processos/create', [ProcessoController::class, 'create'])->name('processos.create');
+    Route::post('/processos', [ProcessoController::class, 'store'])->name('processos.store');
+    Route::post('/processos/{processo}', [ProcessoController::class, 'show'])->name('processos.show');
+    Route::get('/processos/{processo}/edit', [ProcessoController::class, 'edit'])->name('processos.edit');
+    Route::put('/processos/{processo}', [ProcessoController::class, 'update'])->name('processos.update');
+    Route::delete('/processos/{processo}', [ProcessoController::class, 'destroy'])->name('processos.destroy');
+});
 
 
 require __DIR__.'/auth.php';

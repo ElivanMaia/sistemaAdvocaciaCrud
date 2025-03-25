@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendamentos</title>
+    <title>Processos</title>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
@@ -166,65 +166,63 @@
 
             <!-- ================ Order Details List ================= -->
             <div class="details">
-                <div class="recentOrders">
-                    @if (session()->has('message'))
-            <div class="alert-info">
-                {{ session()->get('message') }}
-            </div>
-        @endif
-                    <div class="cardHeader">
-                        <h2>Agendamentos</h2>
-                        <a href="{{ route('agendamentos.create') }}" class="btn">Novo Agendamento</a>    
-                    </div>
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Data</td>
-                                <td>Descrição</td>
-                                <td>Cliente</td>
-                                <td>Advogado</td>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                        @foreach ($agendamentos as $agendamento)
-                        <tr>
-                            <td>{{ $agendamento->data }}</td>
-                            <td>{{ $agendamento->descricao }}</td>
-                            <td>{{ $agendamento->cliente->nome }}</td>
-                            <td>{{ $agendamento->advogado->nome }}</td>
-                            <td>
-                                <a href="{{ route('agendamentos.edit', $agendamento->id) }}" class="editbtn">Editar</a>
-                                <form action="{{ route('agendamentos.destroy', $agendamento->id) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                        <button type="submit" class="deletebtn" 
-                                            onclick="return confirm('Tem certeza que deseja excluir este agendamento?')">Excluir</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- ================= New Customers ================ -->
-                <div class="recentCustomers">
-                    <div class="cardHeader">
-                        <h2>Agendamentos</h2>
-                    </div>
-                    <table>
-                    @foreach ($agendamentos as $agendamento)
-                <tr>
-                    <td>{{ $agendamento->data }} {{ $agendamento->cliente->nome }}</td>
-                </tr>
-            @endforeach
-                    </table>
-                </div>
-            </div>
+    <div class="recentOrders">
+        @if (session()->has('message'))
+        <div class="alert-info">
+            {{ session()->get('message') }}
         </div>
+        @endif
+        <div class="cardHeader">
+            <h2>Processos</h2>
+            <a href="{{ route('processos.create') }}" class="btn">Novo Processo</a>    
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <td>Nome do Processo</td>
+                    <td>Descrição</td>
+                    <td>Cliente</td>
+                    <td>Ações</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach ($processos as $processo)
+                <tr>
+                    <td>{{ $processo->nome }}</td>
+                    <td>{{ $processo->descricao }}</td>
+                    <td>{{ $processo->cliente->nome }}</td>
+                    <td>
+                        <a href="{{ route('processos.edit', $processo->id) }}" class="editbtn">Editar</a>
+                        <form action="{{ route('processos.destroy', $processo->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="deletebtn" 
+                                onclick="return confirm('Tem certeza que deseja excluir este processo?')">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
+
+    <!-- ================= New Customers ================ -->
+    <div class="recentCustomers">
+        <div class="cardHeader">
+            <h2>Processos Recentes</h2>
+        </div>
+        <table>
+            @foreach ($processos as $processo)
+            <tr>
+                <td>{{ $processo->nome }} ({{ $processo->descricao }}) - Cliente: {{ $processo->cliente->nome }}</td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
+</div>
+
 
     <!-- =========== Scripts =========  -->
     <script src="../js/main.js"></script>

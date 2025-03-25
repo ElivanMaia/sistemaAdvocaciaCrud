@@ -59,6 +59,15 @@
                         <span class="title">Advogados</span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="{{ route('processos') }}">
+                        <span class="icon">
+                        <img src="{{ asset('assets/imgs/successProcess.png') }}" alt="Logo" width="32" height="32">
+                        </span>
+                        <span class="title">Processos</span>
+                    </a>
+                </li>
  
                 <li>
                     <a href="{{ route('profile.edit') }}">
@@ -125,6 +134,17 @@
                     <div>
                         <div class="numbers">{{ $agendamentosCount }}</div>
                         <div class="cardName">Agendamentos</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div class="numbers">{{ $processosCount }}</div>
+                        <div class="cardName">Processos</div>
                     </div>
 
                     <div class="iconBx">
