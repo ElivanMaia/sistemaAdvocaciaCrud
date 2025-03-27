@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Processo;
 use App\Models\Cliente;
+use App\Models\HistoricoProcesso;
 use Illuminate\Http\Request;
 
 class ProcessoController extends Controller
@@ -13,6 +14,7 @@ class ProcessoController extends Controller
     $processos = Processo::with('cliente')->get();
     return view('processos', compact('processos'));
 }
+
 
     public function create()
     {
@@ -56,10 +58,32 @@ class ProcessoController extends Controller
         return redirect()->route('processos')->with('success', 'Processo atualizado com sucesso!');
     }
 
-    public function destroy(Processo $processo)
-    {
-        $processo->delete();
+    public function destroy($id)
+{
+    $processo = Processo::findOrFail($id);
 
-        return redirect()->route('processos')->with('success', 'Processo deletado com sucesso!');
-    }
+    HistoricoProcesso::create([
+        'processo_id' => $processo->id,
+        'historico' => 'Processo excluído.',
+        'processo_nome' => $processo->nome,
+    ]);
+
+    $processo->delete();
+
+    return redirect()->route('processos')->with('message', 'Processo excluído com sucesso e registrado no histórico!');
+}
+
+
+
+
+
+public function historico($id)
+{
+    $processo = Processo::findOrFail($id);
+    $historicos = HistoricoProcesso::where('processo_id', $processo->id)->get();
+
+    return view('historicoProcessos', compact('processo', 'historicos'));  
+}
+
+
 }

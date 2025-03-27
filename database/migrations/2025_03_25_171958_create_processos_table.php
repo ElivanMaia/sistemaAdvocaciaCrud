@@ -16,11 +16,11 @@ return new class extends Migration
         $table->string('nome');
         $table->text('descricao')->nullable();
         
-        // Alterando a chave estrangeira para email
         $table->string('cliente_email');
         $table->foreign('cliente_email')->references('email')->on('clientes')->onDelete('cascade');
 
         $table->timestamps();
+        $table->softDeletes();
     });
 }
 
@@ -31,6 +31,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('processos');
+        Schema::table('processos', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

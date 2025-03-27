@@ -6,6 +6,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProcessoController;
+use App\Http\Controllers\HistoricoProcessoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -61,7 +62,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/processos/{processo}/edit', [ProcessoController::class, 'edit'])->name('processos.edit');
     Route::put('/processos/{processo}', [ProcessoController::class, 'update'])->name('processos.update');
     Route::delete('/processos/{processo}', [ProcessoController::class, 'destroy'])->name('processos.destroy');
-});
+    
+    Route::get('/historico/processos', [HistoricoProcessoController::class, 'index'])->name('historicoProcessos');
+    Route::post('/processos/{processo}/historico', [HistoricoProcessoController::class, 'store'])->name('processos.historico.store');
+    Route::delete('/historico/{historico}', [HistoricoProcessoController::class, 'destroy'])->name('processoshistorico.destroy');
+    Route::get('/processos/restore/{id}', [HistoricoProcessoController::class, 'restore'])->name('processos.restore');
 
+});
 
 require __DIR__.'/auth.php';

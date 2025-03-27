@@ -18,6 +18,7 @@
             <ul>
                 <li>
                 <a href="">
+
                         <span class="icon">
                         <img src="{{ asset('assets/imgs/logo.png') }}" alt="Logo" width="54" height="54">
                         </span>
@@ -50,7 +51,7 @@
                         <span class="title">Agendamentos</span>
                     </a>
                 </li>
- 
+
                 <li>
                     <a href="{{ route('advogados') }}">
                         <span class="icon">
@@ -68,7 +69,7 @@
                         <span class="title">Processos</span>
                     </a>
                 </li>
- 
+
                 <li>
                     <a href="{{ route('profile.edit') }}">
                         <span class="icon">
@@ -173,9 +174,11 @@
         </div>
         @endif
         <div class="cardHeader">
-            <h2>Processos</h2>
-            <a href="{{ route('processos.create') }}" class="btn">Novo Processo</a>    
-        </div>
+    <h2>Processos</h2>
+    <a href="{{ route('processos.create') }}" class="btn">Novo Processo</a> 
+    <a href="{{ route('historicoProcessos') }}" class="btn" style="margin-left: 10px;">Ver Histórico</a>
+
+</div>
 
         <table>
             <thead>
@@ -188,23 +191,25 @@
             </thead>
 
             <tbody>
-                @foreach ($processos as $processo)
-                <tr>
-                    <td>{{ $processo->nome }}</td>
-                    <td>{{ $processo->descricao }}</td>
-                    <td>{{ $processo->cliente->nome }}</td>
-                    <td>
-                        <a href="{{ route('processos.edit', $processo->id) }}" class="editbtn">Editar</a>
-                        <form action="{{ route('processos.destroy', $processo->id) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="deletebtn" 
-                                onclick="return confirm('Tem certeza que deseja excluir este processo?')">Excluir</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
+    @foreach ($processos as $processo)
+    <tr>
+        <td>{{ $processo->nome }}</td>
+        <td>{{ $processo->descricao }}</td>
+        <td>{{ $processo->cliente->nome }}</td>
+        <td>
+            <a href="{{ route('processos.edit', $processo->id) }}" class="editbtn">Editar</a>
+            
+            
+            <form action="{{ route('processos.destroy', $processo->id) }}" method="POST" style="display: inline;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="deletebtn" 
+                    onclick="return confirm('Tem certeza que deseja excluir este processo?')">Excluir</button>
+            </form>
+        </td>
+    </tr>
+    @endforeach
+</tbody>
         </table>
     </div>
 
