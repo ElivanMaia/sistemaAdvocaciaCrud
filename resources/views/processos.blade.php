@@ -46,7 +46,7 @@
                 <li>
                     <a href="{{ route('agendamentos') }}">
                         <span class="icon">
-                        <img src="{{ asset('assets/imgs/calendar.png') }}" alt="Logo" width="32" height="32">
+                            <ion-icon name="calendar-outline"></ion-icon>
                         </span>
                         <span class="title">Agendamentos</span>
                     </a>
@@ -55,7 +55,7 @@
                 <li>
                     <a href="{{ route('advogados') }}">
                         <span class="icon">
-                        <img src="{{ asset('assets/imgs/successProcess.png') }}" alt="Logo" width="32" height="32">
+                            <ion-icon name="hammer-outline"></ion-icon>
                         </span>
                         <span class="title">Advogados</span>
                     </a>
@@ -64,7 +64,7 @@
                 <li>
                     <a href="{{ route('processos') }}">
                         <span class="icon">
-                        <img src="{{ asset('assets/imgs/successProcess.png') }}" alt="Logo" width="32" height="32">
+                            <ion-icon name="document-text-outline"></ion-icon>
                         </span>
                         <span class="title">Processos</span>
                     </a>
@@ -149,20 +149,10 @@
                     </div>
 
                     <div class="iconBx">
-                        <ion-icon name="calendar-outline"></ion-icon>
+                        <ion-icon name="document-text-outline"></ion-icon>
                     </div>
                 </div>
 
-                <div class="card">
-                    <div>
-                        <div class="numbers">R$ {{ number_format($lucro) }}</div>
-                        <div class="cardName">Lucro</div>
-                    </div>
-
-                    <div class="iconBx">
-                        <ion-icon name="cash-outline"></ion-icon>
-                    </div>
-                </div>
             </div>
 
             <!-- ================ Order Details List ================= -->
