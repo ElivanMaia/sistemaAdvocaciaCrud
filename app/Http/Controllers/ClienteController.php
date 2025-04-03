@@ -7,27 +7,38 @@ use App\Models\Cliente;
 
 class ClienteController extends Controller
 {
-    private Cliente $cliente;
+    public readonly Cliente $cliente;
 
-    public function __construct(Cliente $cliente)
+    public function __construct()
     {
-        $this->cliente = $cliente;
+        $this->cliente = new Cliente();
     }
 
     public function index()
-    {
-        // Ordena os clientes do mais recente para o mais antigo
-        $clientes = $this->cliente->orderBy('created_at', 'desc')->get();
-        return view('clients', ['clientes' => $clientes]);
-    }
+{
+    $clientes = Cliente::all();
 
+    return view('clients', compact('clientes'));
+}
+
+
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
-    {
-        return view('clients_create');
-    }
+{
+    $clientes = Cliente::all();
 
+    return view('clients_create', compact('clientes'));
+}
+
+
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
+        // Validação dos dados
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
             'email' => 'required|email|unique:clientes,email',
@@ -36,38 +47,71 @@ class ClienteController extends Controller
             'data_nasc' => 'nullable|date',
         ]);
 
-        $this->cliente->create($validated);
+        // Criação do cliente
+        $created = $this->cliente->create($validated);
 
-        return redirect()->route('clients')->with('success', 'Cliente cadastrado com sucesso!');
+        if ($created) {
+            return redirect()->back()->with('message', 'Cliente cadastrado com sucesso!');
+        }
+
+        return redirect()->back()->with('message', 'Erro ao cadastrar cliente.');
     }
 
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function edit(Cliente $cliente)
-    {
-        return view('clients_edit', ['cliente' => $cliente]);
-    }
+{
+    $clientes = Cliente::all();
 
-    public function update(Request $request, Cliente $cliente)
+    return view('clients_edit', compact('cliente', 'clientes'));
+}
+
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
     {
+        // Validação dos dados
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
-            'email' => "required|email|unique:clientes,email,{$cliente->id}",
+            'email' => "required|email|unique:clientes,email,$id",
             'telefone' => 'nullable|string|max:20',
-            'cpf' => "required|string|max:14|unique:clientes,cpf,{$cliente->id}",
+            'cpf' => "required|string|max:14|unique:clientes,cpf,$id",
             'data_nasc' => 'nullable|date',
         ]);
 
-        $updated = $cliente->update($validated);
+        // Atualização do cliente
+        $updated = $this->cliente->where('id', $id)->update($validated);
 
-        return redirect()->back()->with($updated ? 'success' : 'error', 
-            $updated ? 'Dados atualizados com sucesso!' : 'Erro ao atualizar dados.');
-    }
-
-    public function destroy(Cliente $cliente)
-    {
-        if ($cliente->delete()) {
-            return redirect()->route('clients')->with('success', 'Cliente excluído com sucesso!');
+        if ($updated) {
+            return redirect()->back()->with('message', 'Dados atualizados com sucesso!');
         }
 
-        return redirect()->route('clients')->with('error', 'Erro ao excluir cliente.');
+        return redirect()->back()->with('message', 'Erro ao atualizar dados.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $cliente = $this->cliente->find($id);
+
+        if ($cliente) {
+            $cliente->delete();
+            return redirect()->route('clients')->with('message', 'Cliente excluído com sucesso!');
+        }
+
+        return redirect()->route('clients')->with('message', 'Erro ao excluir cliente.');
     }
 }
