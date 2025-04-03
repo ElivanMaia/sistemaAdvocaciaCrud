@@ -60,15 +60,28 @@
     <div class="container">
         <div class="navigation">
             <ul>
-                <li><a href="{{ route('dashboard') }}"><span class="icon"><ion-icon name="home-outline"></ion-icon></span><span class="title">Início</span></a></li>
-                <li><a href="{{ route('clients') }}"><span class="icon"><ion-icon name="people-outline"></ion-icon></span><span class="title">Clientes</span></a></li>
-                <li><a href="{{ route('agendamentos') }}"><span class="icon"><img src="{{ asset('assets/imgs/calendar.png') }}" alt="Logo" width="32" height="32"></span><span class="title">Agendamentos</span></a></li>
-                <li><a href="{{ route('advogados') }}"><span class="icon"><img src="{{ asset('assets/imgs/successProcess.png') }}" alt="Logo" width="32" height="32"></span><span class="title">Advogados</span></a></li>
-                <li><a href="{{ route('processos') }}"><span class="icon"><img src="{{ asset('assets/imgs/successProcess.png') }}" alt="Logo" width="32" height="32"></span><span class="title">Processos</span></a></li>
-                <li><a href="{{ route('profile.edit') }}"><span class="icon"><ion-icon name="settings-outline"></ion-icon></span><span class="title">Configurações</span></a></li>
+                <li><a href="{{ route('dashboard') }}"><span class="icon"><ion-icon
+                                name="home-outline"></ion-icon></span><span class="title">Início</span></a></li>
+                <li><a href="{{ route('clients') }}"><span class="icon"><ion-icon
+                                name="people-outline"></ion-icon></span><span class="title">Clientes</span></a></li>
+                <li><a href="{{ route('agendamentos') }}"><span class="icon"><img
+                                src="{{ asset('assets/imgs/calendar.png') }}" alt="Logo" width="32"
+                                height="32"></span><span class="title">Agendamentos</span></a></li>
+                <li><a href="{{ route('advogados') }}"><span class="icon"><img
+                                src="{{ asset('assets/imgs/successProcess.png') }}" alt="Logo" width="32"
+                                height="32"></span><span class="title">Advogados</span></a></li>
+                <li><a href="{{ route('processos') }}"><span class="icon"><img
+                                src="{{ asset('assets/imgs/successProcess.png') }}" alt="Logo" width="32"
+                                height="32"></span><span class="title">Processos</span></a></li>
+                <li><a href="{{ route('profile.edit') }}"><span class="icon"><ion-icon
+                                name="settings-outline"></ion-icon></span><span class="title">Configurações</span></a>
+                </li>
                 <li>
-                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">@csrf</form>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><span class="icon"><ion-icon name="log-out-outline"></ion-icon></span><span class="title">Sair da Conta</span></a>
+                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">@csrf
+                    </form>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><span
+                            class="icon"><ion-icon name="log-out-outline"></ion-icon></span><span class="title">Sair da
+                            Conta</span></a>
                 </li>
             </ul>
         </div>
@@ -76,7 +89,8 @@
         <div class="main">
             <div class="topbar">
                 <div class="toggle"><ion-icon name="menu-outline"></ion-icon></div>
-                <div class="user"><a href="{{ route('profile.edit') }}"><img src="{{ asset('assets/imgs/userIcon.png') }}" alt=""></a></div>
+                <div class="user"><a href="{{ route('profile.edit') }}"><img
+                            src="{{ asset('assets/imgs/userIcon.png') }}" alt=""></a></div>
             </div>
 
             <div class="cardBox">
@@ -157,8 +171,10 @@
                                     <td>{{ $historico->historico }}</td>
                                     <td>{{ $historico->created_at->format('d/m/Y H:i:s') }}</td>
                                     <td>
-                                        <a href="{{ route('processos.restore', $historico->id) }}" class="btn btn-success">Restaurar</a>
-                                        <form action="{{ route('processoshistorico.destroy', $historico->id) }}" method="POST" style="display:inline-block;">
+                                        <a href="{{ route('processos.restore', $historico->id) }}"
+                                            class="btn btn-success">Restaurar</a>
+                                        <form action="{{ route('processoshistorico.destroy', $historico->id) }}" method="POST"
+                                            style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">

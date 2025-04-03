@@ -17,10 +17,10 @@
         <div class="navigation">
             <ul>
                 <li>
-                <a href="">
+                    <a href="">
 
                         <span class="icon">
-                        <img src="{{ asset('assets/imgs/logo.png') }}" alt="Logo" width="54" height="54">
+                            <img src="{{ asset('assets/imgs/logo.png') }}" alt="Logo" width="54" height="54">
                         </span>
                         <span class="title">Sistema de Agendamento</span>
                     </a>
@@ -71,6 +71,10 @@
                 </li>
 
                 <li>
+                    <hr class="separator">
+                </li>
+
+                <li>
                     <a href="{{ route('profile.edit') }}">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
@@ -80,30 +84,33 @@
                 </li>
 
                 <li>
-    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
-        @csrf
-    </form>
-    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        <span class="icon">
-            <ion-icon name="log-out-outline"></ion-icon>
-        </span>
-        <span class="title">Sair da Conta</span>
-    </a>
-</li>
+                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                        @csrf
+                    </form>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Sair da Conta</span>
+                    </a>
+                </li>
             </ul>
         </div>
 
         <!-- ========================= Main ==================== -->
         <div class="main">
             <div class="topbar">
-                <div class="toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
+                <div class="toggle" id="menuToggle">
+                    <ion-icon name="menu-outline" id="menuIcon"></ion-icon>
                 </div>
 
-                <div class="user">
-                    <a href="{{ route('profile.edit') }}">
-                    <img src="{{ asset('assets/imgs/userIcon.png') }}" alt="">
-                </a>
+                <div class="user-info" style="display: flex; align-items: center; gap: 10px;">
+                    <span>{{ Auth::user()->name }}</span>
+                    <div class="user">
+                        <a href="{{ route('profile.edit') }}">
+                            <img src="{{ asset('assets/imgs/userIcon.png') }}" alt="">
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -157,74 +164,84 @@
 
             <!-- ================ Order Details List ================= -->
             <div class="details">
-    <div class="recentOrders">
-        @if (session()->has('message'))
-        <div class="alert-info">
-            {{ session()->get('message') }}
-        </div>
-        @endif
-        <div class="cardHeader">
-    <h2>Processos</h2>
-    <a href="{{ route('processos.create') }}" class="btn">Novo Processo</a> 
-    <a href="{{ route('historicoProcessos') }}" class="btn" style="margin-left: 10px;">Ver Histórico</a>
+                <div class="recentOrders">
+                    @if (session()->has('message'))
+                        <div class="alert-info">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
+                    <div class="cardHeader">
+                        <h2>Processos</h2>
+                        <a href="{{ route('processos.create') }}" class="btn">Novo Processo</a>
+                        <a href="{{ route('historicoProcessos') }}" class="btn" style="margin-left: 10px;">Ver
+                            Histórico</a>
+                    </div>
 
-</div>
+                    @if ($processos->isEmpty())
+                        <p class="no-data">Nenhum processo adicionado.</p>
+                    @else
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Nome do Processo</td>
+                                    <td>Descrição</td>
+                                    <td>Cliente</td>
+                                    <td>Ações</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($processos as $processo)
+                                    <tr>
+                                        <td>{{ $processo->nome }}</td>
+                                        <td>{{ $processo->descricao }}</td>
+                                        <td>{{ $processo->cliente->nome }}</td>
+                                        <td>
+                                            <a href="{{ route('processos.edit', $processo->id) }}" class="editbtn">Editar</a>
+                                            <form action="{{ route('processos.destroy', $processo->id) }}" method="POST"
+                                                style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="deletebtn"
+                                                    onclick="return confirm('Tem certeza que deseja excluir este processo?')">Excluir</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+                </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <td>Nome do Processo</td>
-                    <td>Descrição</td>
-                    <td>Cliente</td>
-                    <td>Ações</td>
-                </tr>
-            </thead>
+                <!-- ================= New Customers ================ -->
+                <div class="recentCustomers">
+                    <div class="cardHeader">
+                        <h2>Processos Recentes</h2>
+                    </div>
 
-            <tbody>
-    @foreach ($processos as $processo)
-    <tr>
-        <td>{{ $processo->nome }}</td>
-        <td>{{ $processo->descricao }}</td>
-        <td>{{ $processo->cliente->nome }}</td>
-        <td>
-            <a href="{{ route('processos.edit', $processo->id) }}" class="editbtn">Editar</a>
-            
-            
-            <form action="{{ route('processos.destroy', $processo->id) }}" method="POST" style="display: inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="deletebtn" 
-                    onclick="return confirm('Tem certeza que deseja excluir este processo?')">Excluir</button>
-            </form>
-        </td>
-    </tr>
-    @endforeach
-</tbody>
-        </table>
-    </div>
-
-    <!-- ================= New Customers ================ -->
-    <div class="recentCustomers">
-        <div class="cardHeader">
-            <h2>Processos Recentes</h2>
-        </div>
-        <table>
-            @foreach ($processos as $processo)
-            <tr>
-                <td>{{ $processo->nome }} ({{ $processo->descricao }}) - Cliente: {{ $processo->cliente->nome }}</td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-</div>
+                    @if ($processos->isEmpty())
+                        <p class="no-data">Nenhum processo adicionado.</p>
+                    @else
+                        <table>
+                            @foreach ($processos as $processo)
+                                <tr>
+                                    <td>
+                                        <h4>{{ $processo->nome }} ({{ $processo->descricao }}) - Cliente:
+                                            {{ $processo->cliente->nome }}</h4>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    @endif
+                </div>
+            </div>
 
 
-    <!-- =========== Scripts =========  -->
-    <script src="../js/main.js"></script>
+            <!-- =========== Scripts =========  -->
+            <script src="../js/main.js"></script>
 
-    <!-- ====== ionicons ======= -->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+            <!-- ====== ionicons ======= -->
+            <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>

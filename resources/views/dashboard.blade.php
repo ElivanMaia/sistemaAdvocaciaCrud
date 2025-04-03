@@ -24,7 +24,7 @@
                         <span class="title">Sistema de Agendamento</span>
                     </a>
                 </li>
-                
+
                 <li>
                     <a href="{{ route('dashboard') }}">
                         <span class="icon">
@@ -71,6 +71,10 @@
                 </li>
 
                 <li>
+                    <hr class="separator">
+                </li>
+
+                <li>
                     <a href="{{ route('profile.edit') }}">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
@@ -96,14 +100,17 @@
         <!-- ========================= Main ==================== -->
         <div class="main">
             <div class="topbar">
-                <div class="toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
+                <div class="toggle" id="menuToggle">
+                    <ion-icon name="menu-outline" id="menuIcon"></ion-icon>
                 </div>
 
-                <div class="user">
-                    <a href="{{ route('profile.edit') }}">
-                        <img src="{{ asset('assets/imgs/userIcon.png') }}" alt="">
-                    </a>
+                <div class="user-info" style="display: flex; align-items: center; gap: 10px;">
+                    <span>{{ Auth::user()->name }}</span>
+                    <div class="user">
+                        <a href="{{ route('profile.edit') }}">
+                            <img src="{{ asset('assets/imgs/userIcon.png') }}" alt="">
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -156,72 +163,49 @@
             </div>
 
             <!-- ================ Order Details List ================= -->
-            <div class="container">
+
+
+            <div class="desempenho">
                 <h2>Métricas de Desempenho</h2>
-                <canvas id="metricsChart" width="400" height="200"></canvas>
+
+                <div class="chart-container" style="width: 100%; max-width: 500px; margin: auto; margin-bottom: 30px;">
+                    <h4>Distribuição de Clientes, Advogados, Agendamentos e Processos</h4>
+                    <canvas id="metricsChart"></canvas>
+                </div>
             </div>
 
             <script>
-                // Dados dinâmicos (você pode substituí-los pelos valores reais do backend)
-                const clientesCount = {{ $clientesCount }};
-                const advogadosCount = {{ $advogadosCount }};
-                const agendamentosCount = {{ $agendamentosCount }};
-                const lucro = {{ $lucro }};
+                document.addEventListener("DOMContentLoaded", function () {
+                    const clientesCount = {{ $clientesCount }};
+                    const advogadosCount = {{ $advogadosCount }};
+                    const agendamentosCount = {{ $agendamentosCount }};
+                    const processosCount = {{ $processosCount }};
 
-                // Configuração do Gráfico
-                const ctx = document.getElementById('metricsChart').getContext('2d');
-                const metricsChart = new Chart(ctx, {
-                    type: 'bar', // Tipo do gráfico
-                    data: {
-                        labels: ['Clientes', 'Advogados', 'Agendamentos', 'Lucro (em milhares)'], // Nomes das categorias
-                        datasets: [{
-                            label: 'Métricas',
-                            data: [clientesCount, advogadosCount, agendamentosCount, lucro / 1000], // Valores
-                            backgroundColor: [
-                                'rgba(75, 192, 192, 0.5)', // Azul para Clientes
-                                'rgba(153, 102, 255, 0.5)', // Roxo para Advogados
-                                'rgba(255, 159, 64, 0.5)', // Laranja para Agendamentos
-                                'rgba(255, 99, 132, 0.5)'  // Vermelho para Lucro
-                            ],
-                            borderColor: [
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)',
-                                'rgba(255, 99, 132, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                display: true,
-                                position: 'top', // Posição da legenda
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function (context) {
-                                        if (context.label === 'Lucro (em milhares)') {
-                                            return `Lucro: R$ ${(context.raw * 1000).toLocaleString('pt-BR')}`;
-                                        }
-                                        return `${context.label}: ${context.raw}`;
-                                    }
-                                }
-                            }
+                    const ctx1 = document.getElementById('metricsChart').getContext('2d');
+                    new Chart(ctx1, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Clientes', 'Advogados', 'Agendamentos', 'Processos'],
+                            datasets: [{
+                                data: [clientesCount, advogadosCount, agendamentosCount, processosCount],
+                                backgroundColor: ['#36A2EB', '#FFCE56', '#4BC0C0', '#FF6384'],
+                                borderColor: ['#1E88E5', '#FFB300', '#00897B', '#D32F2F'],
+                                borderWidth: 2
+                            }]
                         },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: 'Valores'
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom'
                                 }
                             }
                         }
-                    }
+                    });
                 });
             </script>
+
+
 
             <!-- =========== Scripts =========  -->
             <script src="../js/main.js"></script>

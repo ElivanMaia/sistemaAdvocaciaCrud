@@ -9,7 +9,7 @@
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!-- Bootstrap CSS -->
-   </head>
+</head>
 
 <body>
     <!-- =============== Navigation ================ -->
@@ -17,9 +17,9 @@
         <div class="navigation">
             <ul>
                 <li>
-                <a href="">
+                    <a href="">
                         <span class="icon">
-                        <img src="{{ asset('assets/imgs/logo.png') }}" alt="Logo" width="54" height="54">
+                            <img src="{{ asset('assets/imgs/logo.png') }}" alt="Logo" width="54" height="54">
                         </span>
                         <span class="title">Sistema de Agendamento</span>
                     </a>
@@ -70,6 +70,10 @@
                 </li>
 
                 <li>
+                    <hr class="separator">
+                </li>
+
+                <li>
                     <a href="{{ route('profile.edit') }}">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
@@ -79,30 +83,33 @@
                 </li>
 
                 <li>
-    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
-        @csrf
-    </form>
-    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        <span class="icon">
-            <ion-icon name="log-out-outline"></ion-icon>
-        </span>
-        <span class="title">Sair da Conta</span>
-    </a>
-</li>
+                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                        @csrf
+                    </form>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Sair da Conta</span>
+                    </a>
+                </li>
             </ul>
         </div>
 
         <!-- ========================= Main ==================== -->
         <div class="main">
             <div class="topbar">
-                <div class="toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
+                <div class="toggle" id="menuToggle">
+                    <ion-icon name="menu-outline" id="menuIcon"></ion-icon>
                 </div>
 
-                <div class="user">
-                    <a href="{{ route('profile.edit') }}">
-                    <img src="{{ asset('assets/imgs/userIcon.png') }}" alt="">
-                </a>
+                <div class="user-info" style="display: flex; align-items: center; gap: 10px;">
+                    <span>{{ Auth::user()->name }}</span>
+                    <div class="user">
+                        <a href="{{ route('profile.edit') }}">
+                            <img src="{{ asset('assets/imgs/userIcon.png') }}" alt="">
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -157,47 +164,52 @@
             <!-- ================ Order Details List ================= -->
             <div class="details">
                 <div class="recentOrders">
-                @if (session()->has('message'))
-            <div class="alert-info">
-                {{ session()->get('message') }}
-            </div>
-        @endif
+                    @if (session()->has('message'))
+                        <div class="alert-info">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
                     <div class="cardHeader">
                         <h2>Dados dos Advogados</h2>
                         <a href="{{ route('advogados.create') }}" class="btn">Cadastrar</a>
                     </div>
 
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Nome</td>
-                                <td>Email</td>
-                                <td>Telefone</td>
-                                <td>CPF</td>
-                                <td>Área de atuação</td>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach ($advogados as $advogado)
-                            <tr>
-                                <td> {{ $advogado->nome }} </td>
-                                <td> {{ $advogado->email }} </td>
-                                <td> {{ $advogado->telefone }} </td>
-                                <td> {{ $advogado->cpf }} </td>
-                                <td> {{ $advogado->area_atuacao }} </td>
-                                <td>
-                                <a class="editbtn" href="{{ route('advogados.edit', ['advogado' => $advogado->id]) }}">Editar</a>
-                                <form action="{{ route('advogados.destroy', ['advogado' => $advogado->id]) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="deletebtn">Deletar</button>
-                                </form>
-                                </td>                         
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @if ($advogados->isEmpty())
+                        <p class="no-data">Nenhum advogado adicionado.</p>
+                    @else
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Nome</td>
+                                    <td>Email</td>
+                                    <td>Telefone</td>
+                                    <td>CPF</td>
+                                    <td>Área de atuação</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($advogados as $advogado)
+                                    <tr>
+                                        <td> {{ $advogado->nome }} </td>
+                                        <td> {{ $advogado->email }} </td>
+                                        <td> {{ $advogado->telefone }} </td>
+                                        <td> {{ $advogado->cpf }} </td>
+                                        <td> {{ $advogado->area_atuacao }} </td>
+                                        <td>
+                                            <a class="editbtn"
+                                                href="{{ route('advogados.edit', ['advogado' => $advogado->id]) }}">Editar</a>
+                                            <form action="{{ route('advogados.destroy', ['advogado' => $advogado->id]) }}"
+                                                method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="deletebtn">Deletar</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
 
                 <!-- ================= New Customers ================ -->
@@ -205,16 +217,22 @@
                     <div class="cardHeader">
                         <h2>Advogados Recentes</h2>
                     </div>
-                    <table>
-                    @foreach ($advogados as $advogado)
-                        <tr>
-                            <td>
-                                <h4>{{ $advogado->nome}}<br> <span>Novo</span></h4>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </table>
+
+                    @if ($advogados->isEmpty())
+                        <p style="text-align: center; padding: 10px; font-weight: bold;">Nenhum advogado adicionado.</p>
+                    @else
+                        <table>
+                            @foreach ($advogados as $advogado)
+                                <tr>
+                                    <td>
+                                        <h4>{{ $advogado->nome }}<br> <span>Novo</span></h4>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    @endif
                 </div>
+
             </div>
         </div>
     </div>
@@ -226,6 +244,7 @@
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    
+
 </body>
+
 </html>

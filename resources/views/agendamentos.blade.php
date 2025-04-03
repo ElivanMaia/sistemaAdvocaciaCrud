@@ -17,9 +17,9 @@
         <div class="navigation">
             <ul>
                 <li>
-                <a href="">
+                    <a href="">
                         <span class="icon">
-                        <img src="{{ asset('assets/imgs/logo.png') }}" alt="Logo" width="54" height="54">
+                            <img src="{{ asset('assets/imgs/logo.png') }}" alt="Logo" width="54" height="54">
                         </span>
                         <span class="title">Sistema de Agendamento</span>
                     </a>
@@ -70,6 +70,10 @@
                 </li>
 
                 <li>
+                    <hr class="separator">
+                </li>
+
+                <li>
                     <a href="{{ route('profile.edit') }}">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
@@ -79,30 +83,33 @@
                 </li>
 
                 <li>
-    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
-        @csrf
-    </form>
-    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        <span class="icon">
-            <ion-icon name="log-out-outline"></ion-icon>
-        </span>
-        <span class="title">Sair da Conta</span>
-    </a>
-</li>
+                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                        @csrf
+                    </form>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Sair da Conta</span>
+                    </a>
+                </li>
             </ul>
         </div>
 
         <!-- ========================= Main ==================== -->
         <div class="main">
             <div class="topbar">
-                <div class="toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
+                <div class="toggle" id="menuToggle">
+                    <ion-icon name="menu-outline" id="menuIcon"></ion-icon>
                 </div>
 
-                <div class="user">
-                    <a href="{{ route('profile.edit') }}">
-                    <img src="{{ asset('assets/imgs/userIcon.png') }}" alt="">
-                </a>
+                <div class="user-info" style="display: flex; align-items: center; gap: 10px;">
+                    <span>{{ Auth::user()->name }}</span>
+                    <div class="user">
+                        <a href="{{ route('profile.edit') }}">
+                            <img src="{{ asset('assets/imgs/userIcon.png') }}" alt="">
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -158,59 +165,71 @@
             <div class="details">
                 <div class="recentOrders">
                     @if (session()->has('message'))
-            <div class="alert-info">
-                {{ session()->get('message') }}
-            </div>
-        @endif
+                        <div class="alert-info">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
                     <div class="cardHeader">
                         <h2>Agendamentos</h2>
-                        <a href="{{ route('agendamentos.create') }}" class="btn">Novo Agendamento</a>    
+                        <a href="{{ route('agendamentos.create') }}" class="btn">Novo Agendamento</a>
                     </div>
 
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Data</td>
-                                <td>Descrição</td>
-                                <td>Cliente</td>
-                                <td>Advogado</td>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                        @foreach ($agendamentos as $agendamento)
-                        <tr>
-                            <td>{{ $agendamento->data }}</td>
-                            <td>{{ $agendamento->descricao }}</td>
-                            <td>{{ $agendamento->cliente->nome }}</td>
-                            <td>{{ $agendamento->advogado->nome }}</td>
-                            <td>
-                                <a href="{{ route('agendamentos.edit', $agendamento->id) }}" class="editbtn">Editar</a>
-                                <form action="{{ route('agendamentos.destroy', $agendamento->id) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                        <button type="submit" class="deletebtn" 
-                                            onclick="return confirm('Tem certeza que deseja excluir este agendamento?')">Excluir</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                    @if ($agendamentos->isEmpty())
+                        <p class="no-data">Nenhum agendamento adicionado.</p>
+                    @else
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Data</td>
+                                    <td>Descrição</td>
+                                    <td>Cliente</td>
+                                    <td>Advogado</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($agendamentos as $agendamento)
+                                    <tr>
+                                        <td>{{ $agendamento->data }}</td>
+                                        <td>{{ $agendamento->descricao }}</td>
+                                        <td>{{ $agendamento->cliente->nome }}</td>
+                                        <td>{{ $agendamento->advogado->nome }}</td>
+                                        <td>
+                                            <a href="{{ route('agendamentos.edit', $agendamento->id) }}"
+                                                class="editbtn">Editar</a>
+                                            <form action="{{ route('agendamentos.destroy', $agendamento->id) }}" method="POST"
+                                                style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="deletebtn"
+                                                    onclick="return confirm('Tem certeza que deseja excluir este agendamento?')">Excluir</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
 
                 <!-- ================= New Customers ================ -->
                 <div class="recentCustomers">
                     <div class="cardHeader">
-                        <h2>Agendamentos</h2>
+                        <h2>Agendamentos Recentes</h2>
                     </div>
-                    <table>
-                    @foreach ($agendamentos as $agendamento)
-                <tr>
-                    <td>{{ $agendamento->data }} {{ $agendamento->cliente->nome }}</td>
-                </tr>
-            @endforeach
-                    </table>
+
+                    @if ($agendamentos->isEmpty())
+                        <p class="no-data">Nenhum agendamento adicionado.</p>
+                    @else
+                        <table>
+                            @foreach ($agendamentos as $agendamento)
+                                <tr>
+                                    <td>
+                                        <h4>{{ $agendamento->data }} - {{ $agendamento->cliente->nome }}<br></h4>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    @endif
                 </div>
             </div>
         </div>
