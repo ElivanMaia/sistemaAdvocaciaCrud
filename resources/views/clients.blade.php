@@ -11,6 +11,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KyZXEJv+u5O1/21t9b/aK4L5e+zg5n52ZZkY94kdDmg1VV5zz00Ch2BStQKpfFJs" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
 </head>
 
@@ -167,11 +168,22 @@
             <!-- ================ Order Details List ================= -->
             <div class="details">
                 <div class="recentOrders">
-                    @if (session()->has('message'))
-                        <div class="alert-info">
-                            {{ session()->get('message') }}
+                    @if (session()->has('success') || session()->has('error') || session()->has('info'))
+                        <div class="container mt-3">
+                            @foreach (['success', 'error', 'info'] as $msg)
+                                @if (session()->has($msg))
+                                    <div id="alert-{{ $msg }}"
+                                        class="alert alert-{{ $msg == 'error' ? 'danger' : $msg }} alert-dismissible fade show"
+                                        role="alert">
+                                        <span>{{ session($msg) }}</span>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Fechar"></button>
+                                    </div>
+                                @endif
+                            @endforeach
                         </div>
                     @endif
+
                     <div class="cardHeader">
                         <h2>Dados dos Clientes</h2>
                         <a href="{{ route('clients.create') }}" class="btn">Cadastrar</a>
@@ -199,15 +211,17 @@
                                         <td> {{ $cliente->email }} </td>
                                         <td> {{ $cliente->telefone }} </td>
                                         <td> {{ $cliente->cpf }} </td>
-                                        <td> {{ $cliente->data_nasc }} </td>
+                                        <td> {{ \Carbon\Carbon::parse($cliente->data_nasc)->format('d/m/Y') }} </td>
                                         <td>
                                             <a class="editbtn" href="{{ route('clients.edit', $cliente->id) }}">Editar</a>
                                             <form action="{{ route('clients.destroy', $cliente->id) }}" method="POST"
-                                                style="display:inline;">
+                                                style="display:inline;"
+                                                onsubmit="return confirm('Tem certeza que deseja excluir este cliente?');">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="deletebtn">Deletar</button>
                                             </form>
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -235,7 +249,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($clientes as $cliente)
+                @foreach ($clientes->sortByDesc('created_at') as $cliente) 
                     <tr>
                         <td>
                             <h4>{{ $cliente->nome }}</h4>
@@ -250,15 +264,23 @@
     @endif
 </div>
 
-
-
             </div>
         </div>
     </div>
 
     <!-- =========== Scripts =========  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        setTimeout(() => {
+            let alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                let bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 5000);
+    </script>
     <script src="../js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

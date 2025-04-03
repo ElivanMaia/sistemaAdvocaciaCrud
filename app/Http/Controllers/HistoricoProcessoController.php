@@ -24,31 +24,40 @@ class HistoricoProcessoController extends Controller
             'historico' => $request->historico,
         ]);
 
-        return redirect()->route('processos.historico', $processo->id)->with('message', 'Histórico adicionado com sucesso!');
+        return redirect()->route('processos.historico', $processo->id)
+            ->with('success', 'Histórico adicionado com sucesso!');
     }
 
     public function destroy($historicoId)
-{
-    $historico = HistoricoProcesso::findOrFail($historicoId);
-    $historico->delete();
+    {
+        $historico = HistoricoProcesso::find($historicoId);
 
-    return redirect()->route('historicoProcessos')->with('message', 'Histórico excluído com sucesso!');
-}
+        if (!$historico) {
+            return redirect()->route('historicoProcessos')->with('error', 'Histórico não encontrado.');
+        }
 
+        $historico->delete();
+
+        return redirect()->route('historicoProcessos')->with('success', 'Histórico excluído com sucesso!');
+    }
 
     public function restore($id)
-{
-    $historico = HistoricoProcesso::findOrFail($id);
+    {
+        $historico = HistoricoProcesso::find($id);
 
-    $processo = Processo::onlyTrashed()->findOrFail($historico->processo_id);
+        if (!$historico) {
+            return redirect()->route('historicoProcessos')->with('error', 'Histórico não encontrado.');
+        }
 
-    $processo->restore();
+        $processo = Processo::onlyTrashed()->find($historico->processo_id);
 
-    $historico->delete();
+        if (!$processo) {
+            return redirect()->route('historicoProcessos')->with('error', 'Processo não encontrado para restauração.');
+        }
 
-    return redirect()->route('historicoProcessos')->with('message', 'Processo restaurado com sucesso!');
+        $processo->restore();
+        $historico->delete();
+
+        return redirect()->route('historicoProcessos')->with('success', 'Processo restaurado com sucesso!');
+    }
 }
-
-}
-
-

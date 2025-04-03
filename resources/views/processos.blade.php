@@ -238,6 +238,15 @@
 
             <!-- =========== Scripts =========  -->
             <script src="../js/main.js"></script>
+            <script>
+    setTimeout(() => {
+        let alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            let bsAlert = new bootstrap.Alert(alert);
+            bsAlert.close();
+        });
+    }, 5000);
+</script>
 
             <!-- ====== ionicons ======= -->
             <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

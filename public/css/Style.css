@@ -322,9 +322,6 @@ body {
   transform: scale(1.01);
 }
 
-.details .recentOrders table tbody tr:hover td {
-  font-weight: 500;
-}
 
 .details .recentOrders table tr td {
   padding: 8px;
@@ -422,11 +419,6 @@ body {
   background: rgba(200, 200, 200, 0.3);
   transform: scale(1.01);
 }
-
-.recentCustomers table tbody tr:hover td h4 {
-  font-weight: 500;
-}
-
 
 
 /* ====================== Responsive Design ========================== */
@@ -549,23 +541,6 @@ body {
   box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.5); 
 }
 
-  /*Cards*/
-
-.alert-info {
-  background-color: #d1ecf1; 
-  color: #0c5460; 
-  border-color: #bee5eb; 
-  padding: 1rem; 
-  border-radius: 0.25rem; 
-}
-
-.alert-error {
-  background-color: #f8d7da; 
-  color: #721c24; 
-  border-color: #f5c6cb; 
-  padding: 1rem; 
-  border-radius: 0.25rem; 
-}
 
 .desempenho {
   text-align: center;
@@ -599,3 +574,59 @@ body {
   margin: 15px 0;
 }
 
+/* =================== ALERTAS PERSONALIZADOS =================== */
+
+.alert-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1050;
+  max-width: 400px;
+  padding-bottom: 15px;
+}
+
+.alert {
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: opacity 0.5s ease-in-out;
+  margin-bottom: 15px;
+}
+
+
+.alert-success::before,
+.alert-danger::before,
+.alert-info::before {
+  font-family: "Bootstrap-icons";
+  font-size: 20px;
+}
+
+.alert-success::before {
+  content: "\F26B";
+  color: #198754;
+}
+
+.alert-danger::before {
+  content: "\F12A";
+  color: #dc3545;
+}
+
+.alert-info::before {
+  content: "\F05A";
+  color: #0dcaf0;
+}
+
+.alert .btn-close {
+  margin-left: auto;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.alert .btn-close:hover {
+  opacity: 1;
+}

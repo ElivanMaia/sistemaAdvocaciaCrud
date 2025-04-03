@@ -10,11 +10,10 @@ use Illuminate\Http\Request;
 class ProcessoController extends Controller
 {
     public function index()
-{
-    $processos = Processo::with('cliente')->get();
-    return view('processos', compact('processos'));
-}
-
+    {
+        $processos = Processo::with('cliente')->get();
+        return view('processos', compact('processos'));
+    }
 
     public function create()
     {
@@ -24,17 +23,13 @@ class ProcessoController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
             'descricao' => 'nullable|string',
             'cliente_email' => 'required|exists:clientes,email',
         ]);
 
-        Processo::create([
-            'nome' => $request->nome,
-            'descricao' => $request->descricao,
-            'cliente_email' => $request->cliente_email,
-        ]);
+        Processo::create($validatedData);
 
         return redirect()->route('processos')->with('success', 'Processo criado com sucesso!');
     }
@@ -47,43 +42,46 @@ class ProcessoController extends Controller
 
     public function update(Request $request, Processo $processo)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
             'descricao' => 'nullable|string',
             'cliente_email' => 'required|exists:clientes,email',
         ]);
 
-        $processo->update($request->all());
+        $processo->update($validatedData);
 
         return redirect()->route('processos')->with('success', 'Processo atualizado com sucesso!');
     }
 
     public function destroy($id)
-{
-    $processo = Processo::findOrFail($id);
+    {
+        $processo = Processo::find($id);
 
-    HistoricoProcesso::create([
-        'processo_id' => $processo->id,
-        'historico' => 'Processo excluído.',
-        'processo_nome' => $processo->nome,
-    ]);
+        if (!$processo) {
+            return redirect()->route('processos')->with('error', 'Processo não encontrado.');
+        }
 
-    $processo->delete();
+        HistoricoProcesso::create([
+            'processo_id' => $processo->id,
+            'historico' => 'Processo excluído.',
+            'processo_nome' => $processo->nome,
+        ]);
 
-    return redirect()->route('processos')->with('message', 'Processo excluído com sucesso e registrado no histórico!');
-}
+        $processo->delete();
 
+        return redirect()->route('processos')->with('success', 'Processo excluído com sucesso e registrado no histórico!');
+    }
 
+    public function historico($id)
+    {
+        $processo = Processo::find($id);
 
+        if (!$processo) {
+            return redirect()->route('processos')->with('error', 'Processo não encontrado.');
+        }
 
+        $historicos = HistoricoProcesso::where('processo_id', $processo->id)->get();
 
-public function historico($id)
-{
-    $processo = Processo::findOrFail($id);
-    $historicos = HistoricoProcesso::where('processo_id', $processo->id)->get();
-
-    return view('historicoProcessos', compact('processo', 'historicos'));  
-}
-
-
+        return view('historicoProcessos', compact('processo', 'historicos'));
+    }
 }

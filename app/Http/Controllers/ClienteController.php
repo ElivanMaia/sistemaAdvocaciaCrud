@@ -7,34 +7,27 @@ use App\Models\Cliente;
 
 class ClienteController extends Controller
 {
-    public readonly Cliente $cliente;
+    private Cliente $cliente;
 
-    public function __construct()
+    public function __construct(Cliente $cliente)
     {
-        $this->cliente = new Cliente();
+        $this->cliente = $cliente;
     }
 
     public function index()
     {
-        $clientes = $this->cliente->all();
-
+        // Ordena os clientes do mais recente para o mais antigo
+        $clientes = $this->cliente->orderBy('created_at', 'desc')->get();
         return view('clients', ['clientes' => $clientes]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('clients_create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        // Validação dos dados
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
             'email' => 'required|email|unique:clientes,email',
@@ -43,68 +36,38 @@ class ClienteController extends Controller
             'data_nasc' => 'nullable|date',
         ]);
 
-        // Criação do cliente
-        $created = $this->cliente->create($validated);
+        $this->cliente->create($validated);
 
-        if ($created) {
-            return redirect()->back()->with('message', 'Cliente cadastrado com sucesso!');
-        }
-
-        return redirect()->back()->with('message', 'Erro ao cadastrar cliente.');
+        return redirect()->route('clients')->with('success', 'Cliente cadastrado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Cliente $cliente)
     {
         return view('clients_edit', ['cliente' => $cliente]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Cliente $cliente)
     {
-        // Validação dos dados
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
-            'email' => "required|email|unique:clientes,email,$id",
+            'email' => "required|email|unique:clientes,email,{$cliente->id}",
             'telefone' => 'nullable|string|max:20',
-            'cpf' => "required|string|max:14|unique:clientes,cpf,$id",
+            'cpf' => "required|string|max:14|unique:clientes,cpf,{$cliente->id}",
             'data_nasc' => 'nullable|date',
         ]);
 
-        // Atualização do cliente
-        $updated = $this->cliente->where('id', $id)->update($validated);
+        $updated = $cliente->update($validated);
 
-        if ($updated) {
-            return redirect()->back()->with('message', 'Dados atualizados com sucesso!');
-        }
-
-        return redirect()->back()->with('message', 'Erro ao atualizar dados.');
+        return redirect()->back()->with($updated ? 'success' : 'error', 
+            $updated ? 'Dados atualizados com sucesso!' : 'Erro ao atualizar dados.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Cliente $cliente)
     {
-        $cliente = $this->cliente->find($id);
-
-        if ($cliente) {
-            $cliente->delete();
-            return redirect()->route('clients')->with('message', 'Cliente excluído com sucesso!');
+        if ($cliente->delete()) {
+            return redirect()->route('clients')->with('success', 'Cliente excluído com sucesso!');
         }
 
-        return redirect()->route('clients')->with('message', 'Erro ao excluir cliente.');
+        return redirect()->route('clients')->with('error', 'Erro ao excluir cliente.');
     }
 }

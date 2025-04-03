@@ -239,6 +239,15 @@
 
     <!-- =========== Scripts =========  -->
     <script src="../js/main.js"></script>
+    <script>
+        setTimeout(() => {
+            let alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                let bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 5000);
+    </script>
     <!-- Bootstrap Bundle with Popper -->
 
     <!-- ====== ionicons ======= -->
