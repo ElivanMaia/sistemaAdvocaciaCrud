@@ -233,36 +233,7 @@
 
 
                 <!-- ================= New Customers ================ -->
-                <div class="recentCustomers">
-                    <div class="cardHeader">
-                        <h2>Clientes Recentes</h2>
-                    </div>
-
-                    @if ($clientes->isEmpty())
-                        <p class="no-data">Nenhum cliente adicionado.</p>
-                    @else
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td>Nome</td>
-                                    <td>Idade</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($clientes->sortByDesc('created_at') as $cliente)
-                                    <tr>
-                                        <td>
-                                            <h4>{{ $cliente->nome }}</h4>
-                                        </td>
-                                        <td>
-                                            {{ \Carbon\Carbon::parse($cliente->data_nasc)->age }} anos
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @endif
-                </div>
+                
 
             </div>
         </div>

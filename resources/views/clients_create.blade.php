@@ -213,7 +213,17 @@
 
             <!-- ==================== Formulário ==================== -->
             <div class="form-card">
-                <h2>Cadastrar Cliente</h2>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <h2 style="padding-bottom: 10px">Cadastrar Cliente</h2>
                 <form action="{{ route('clients.store') }}" method="POST" class="form-container">
                     @csrf
                     <div class="input-group">

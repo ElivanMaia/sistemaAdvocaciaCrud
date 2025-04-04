@@ -185,6 +185,7 @@
                                     <td>Telefone</td>
                                     <td>CPF</td>
                                     <td>Área de atuação</td>
+                                    <td>Ações</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -213,25 +214,7 @@
                 </div>
 
                 <!-- ================= New Customers ================ -->
-                <div class="recentCustomers">
-                    <div class="cardHeader">
-                        <h2>Advogados Recentes</h2>
-                    </div>
-
-                    @if ($advogados->isEmpty())
-                        <p style="text-align: center; padding: 10px; font-weight: bold;">Nenhum advogado adicionado.</p>
-                    @else
-                        <table>
-                            @foreach ($advogados as $advogado)
-                                <tr>
-                                    <td>
-                                        <h4>{{ $advogado->nome }}<br> <span>Novo</span></h4>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </table>
-                    @endif
-                </div>
+                
 
             </div>
         </div>

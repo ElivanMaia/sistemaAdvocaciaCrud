@@ -13,7 +13,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KyZXEJv+u5O1/21t9b/aK4L5e+zg5n52ZZkY94kdDmg1VV5zz00Ch2BStQKpfFJs" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     <style>
         .form-card {
@@ -212,8 +212,19 @@
 
             <!-- ==================== Formulário ==================== -->
             <div class="form-card">
-                <h2>Editar Cliente</h2>
-                <form action="{{ route('clients.update', ['cliente' => $cliente->id]) }}" method="POST" class="form-container">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <h2 style="padding-bottom: 10px">Editar Cliente</h2>
+                <form action="{{ route('clients.update', ['cliente' => $cliente->id]) }}" method="POST"
+                    class="form-container">
                     @csrf
                     @method('PUT')
 
@@ -259,7 +270,7 @@
     </script>
 
     <script>
-        $(document).ready(function () {
+        document.addEventListener("DOMContentLoaded", function () {
             $('#telefone').mask('(00) 00000-0000');
             $('#cpf').mask('000.000.000-00');
 
@@ -267,6 +278,7 @@
             document.getElementById("data_nasc").setAttribute("max", today);
         });
     </script>
+
 
     <script src="../js/main.js"></script>
 
