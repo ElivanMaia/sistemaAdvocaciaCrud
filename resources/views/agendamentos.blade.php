@@ -236,14 +236,14 @@
                             @foreach ($agendamentos->sortBy(function ($item) {
                                 return abs(\Carbon\Carbon::now()->diffInSeconds($item->data));
                             }) as $agendamento)
-                                                                    <tr>
-                                                                        <td>
+                <tr>
+                        <td>
 
-                                                                                                <h4>{{ \Carbon\Carbon::parse($agendamento->data)->format('d/m/Y H:i') }} -
+                            <h4>{{ \Carbon\Carbon::parse($agendamento->data)->format('d/m/Y H:i') }} -
                                                                                 {{ $agendamento->cliente->nome }}</h4>
-                                                                            </td>
-                                                                        </tr>
-                                            @endforeach
+                                        </td>
+                                    </tr>
+                                @endforeach
                         </table>
                     @endif
 

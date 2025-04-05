@@ -219,7 +219,7 @@
                                                 onsubmit="return confirm('Tem certeza que deseja excluir este cliente?');">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="deletebtn">Deletar</button>
+                                                <button type="submit" class="deletebtn">Excluir</button>
                                             </form>
 
                                         </td>

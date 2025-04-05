@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\HistoricoProcesso;
 use App\Models\Processo;
-use Illuminate\Http\Request;
+use App\Http\Requests\HistoricoProcessoRequest;
 
 class HistoricoProcessoController extends Controller
 {
@@ -14,12 +14,9 @@ class HistoricoProcessoController extends Controller
         return view('historicoProcessos', compact('historicoProcessos'));
     }
 
-    public function store(Request $request, Processo $processo)
+    public function store(HistoricoProcessoRequest $request, Processo $processo)
     {
-        $request->validate([
-            'historico' => 'required|string|max:255',
-        ]);
-
+        // Não é mais necessário validar manualmente aqui, pois já foi validado na classe HistoricoProcessoRequest
         $processo->historicos()->create([
             'historico' => $request->historico,
         ]);
@@ -42,22 +39,23 @@ class HistoricoProcessoController extends Controller
     }
 
     public function restore($id)
-    {
-        $historico = HistoricoProcesso::find($id);
+{
+    $historico = HistoricoProcesso::find($id);
 
-        if (!$historico) {
-            return redirect()->route('historicoProcessos')->with('error', 'Histórico não encontrado.');
-        }
-
-        $processo = Processo::onlyTrashed()->find($historico->processo_id);
-
-        if (!$processo) {
-            return redirect()->route('historicoProcessos')->with('error', 'Processo não encontrado para restauração.');
-        }
-
-        $processo->restore();
-        $historico->delete();
-
-        return redirect()->route('historicoProcessos')->with('success', 'Processo restaurado com sucesso!');
+    if (!$historico) {
+        return redirect()->route('historicoProcessos')->with('error', 'Histórico não encontrado.');
     }
+
+    $processo = Processo::onlyTrashed()->find($historico->processo_id);
+
+    if (!$processo) {
+        return redirect()->route('historicoProcessos')->with('error', 'Processo não encontrado para restauração.');
+    }
+
+    $processo->restore();
+    $historico->delete();
+
+    return redirect()->route('historicoProcessos')->with('success', 'Processo restaurado com sucesso!');
+}
+
 }

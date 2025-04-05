@@ -66,8 +66,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/historico/processos', [HistoricoProcessoController::class, 'index'])->name('historicoProcessos');
     Route::post('/processos/{processo}/historico', [HistoricoProcessoController::class, 'store'])->name('processos.historico.store');
     Route::delete('/historico/{historico}', [HistoricoProcessoController::class, 'destroy'])->name('processoshistorico.destroy');
-    Route::get('/processos/restore/{id}', [HistoricoProcessoController::class, 'restore'])->name('processos.restore');
-
+    Route::post('/processos/restore/{id}', [HistoricoProcessoController::class, 'restore'])->name('processos.restore');
 });
+
 
 require __DIR__.'/auth.php';
