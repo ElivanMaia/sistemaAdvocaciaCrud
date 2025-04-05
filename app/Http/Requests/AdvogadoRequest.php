@@ -16,8 +16,8 @@ class AdvogadoRequest extends FormRequest
         $advogadoId = $this->advogado?->id ?? null;
 
         return [
-            'nome' => 'required|string|min:3|max:255',
-            'email' => 'required|email|max:255|unique:advogados,email,' . $advogadoId,
+            'nome' => 'required|string|min:3|max:45',
+            'email' => 'required|email|max:40|unique:advogados,email,' . $advogadoId,
             'telefone' => [
                 'nullable',
                 'string',
@@ -31,7 +31,7 @@ class AdvogadoRequest extends FormRequest
                 'regex:/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/',
                 'unique:advogados,cpf,' . $advogadoId
             ],
-            'area_atuacao' => 'required|string|max:255',
+            'area_atuacao' => 'required|string|max:30',
         ];
     }
 
@@ -40,12 +40,12 @@ class AdvogadoRequest extends FormRequest
         return [
             'nome.required' => 'O nome é obrigatório.',
             'nome.min' => 'O nome deve ter no mínimo 3 caracteres.',
-            'nome.max' => 'O nome deve ter no máximo 255 caracteres.',
+            'nome.max' => 'O nome deve ter no máximo 45 caracteres.',
 
             'email.required' => 'O e-mail é obrigatório.',
             'email.email' => 'Formato de e-mail inválido.',
             'email.unique' => 'Este e-mail já está em uso.',
-            'email.max' => 'O e-mail deve ter no máximo 255 caracteres.',
+            'email.max' => 'O e-mail deve ter no máximo 40 caracteres.',
 
             'telefone.regex' => 'Formato de telefone inválido. Ex: (99) 99999-9999',
 
@@ -54,7 +54,7 @@ class AdvogadoRequest extends FormRequest
             'cpf.unique' => 'Este CPF já está em uso.',
 
             'area_atuacao.required' => 'A área de atuação é obrigatória.',
-            'area_atuacao.max' => 'A área de atuação deve ter no máximo 255 caracteres.',
+            'area_atuacao.max' => 'A área de atuação deve ter no máximo 30 caracteres.',
         ];
     }
 }

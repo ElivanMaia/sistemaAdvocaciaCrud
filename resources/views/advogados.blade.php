@@ -212,11 +212,13 @@
                                             <a class="editbtn"
                                                 href="{{ route('advogados.edit', ['advogado' => $advogado->id]) }}">Editar</a>
                                             <form action="{{ route('advogados.destroy', ['advogado' => $advogado->id]) }}"
-                                                method="POST" style="display:inline;">
+                                                method="POST" style="display:inline;"
+                                                onsubmit="return confirm('Tem certeza que deseja excluir este advogado?');">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="deletebtn">Deletar</button>
                                             </form>
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -231,6 +233,7 @@
 
     <!-- =========== Scripts =========  -->
     <script src="../js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         setTimeout(() => {
             let alerts = document.querySelectorAll('.alert');

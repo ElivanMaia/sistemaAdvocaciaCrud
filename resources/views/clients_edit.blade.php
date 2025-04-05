@@ -241,6 +241,19 @@
 
             <!-- ==================== Formulário ==================== -->
             <div class="form-card">
+            @if (session()->has('message'))
+                    <div class="alert alert-info">{{ session()->get('message') }}</div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
     <h2 class="mb-4" style="font-weight: bold; padding-bottom: 10px;">Editar Cliente</h2>
 
     <form action="{{ route('clients.update', $cliente->id) }}" method="POST" class="form-container">

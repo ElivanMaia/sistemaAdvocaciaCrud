@@ -197,6 +197,19 @@
 
             <div class="form-card">
                 <h2 class="mb-4" style="font-weight: bold; padding-bottom: 10px;">Novo Agendamento</h2>
+                @if (session()->has('message'))
+                    <div class="alert alert-info">{{ session()->get('message') }}</div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <form action="{{ route('agendamentos.store') }}" method="POST" class="form-container">
                     @csrf

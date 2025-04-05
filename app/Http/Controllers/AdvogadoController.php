@@ -36,12 +36,26 @@ class AdvogadoController extends Controller
 
     public function update(AdvogadoRequest $request, Advogado $advogado): RedirectResponse
     {
+        if (
+            $request->nome === $advogado->nome &&
+            $request->email === $advogado->email &&
+            $request->telefone === $advogado->telefone &&
+            $request->cpf === $advogado->cpf &&
+            $request->area_atuacao === $advogado->area_atuacao
+        ) {
+            return redirect()
+                ->route('advogados')
+                ->with('info', 'Nenhuma alteração foi feita.');
+        }
+
         $advogado->update($request->validated());
 
         return redirect()
             ->route('advogados')
-            ->with('success', 'Dados atualizados com sucesso!');
+            ->with('success', 'Advogado atualizado com sucesso!');
     }
+
+
 
     public function destroy(Advogado $advogado): RedirectResponse
     {
