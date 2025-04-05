@@ -9,6 +9,7 @@
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -164,12 +165,21 @@
             <!-- ================ Order Details List ================= -->
             <div class="details">
                 <div class="recentOrders">
-                @if (session()->has('message'))
-    <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
-        {{ session()->get('message') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
+                    @if (session()->has('success') || session()->has('error') || session()->has('info'))
+                        <div class="container mt-3">
+                            @foreach (['success', 'error', 'info'] as $msg)
+                                @if (session()->has($msg))
+                                    <div id="alert-{{ $msg }}"
+                                        class="alert alert-{{ $msg == 'error' ? 'danger' : $msg }} alert-dismissible fade show"
+                                        role="alert">
+                                        <span>{{ session($msg) }}</span>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Fechar"></button>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endif
 
                     <div class="cardHeader">
                         <h2>Dados dos Advogados</h2>
@@ -215,9 +225,6 @@
                     @endif
                 </div>
 
-                <!-- ================= New Customers ================ -->
-                
-
             </div>
         </div>
     </div>
@@ -233,7 +240,6 @@
             });
         }, 5000);
     </script>
-    <!-- Bootstrap Bundle with Popper -->
 
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

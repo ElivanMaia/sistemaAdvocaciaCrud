@@ -3,69 +3,56 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advogado;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\AdvogadoRequest;
+use Illuminate\View\View;
 
 class AdvogadoController extends Controller
 {
-    public readonly Advogado $advogado;
-
-    public function __construct()
+    public function index(): View
     {
-        $this->advogado = new Advogado();
-    }
-
-    public function index()
-    {
-        $advogados = $this->advogado->all();
+        $advogados = Advogado::all();
         return view('advogados', compact('advogados'));
     }
 
-    public function create()
+    public function create(): View
     {
         return view('advogados_create');
     }
 
-    public function store(Request $request)
+    public function store(AdvogadoRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'nome' => 'required|string|max:255',
-            'email' => 'required|email|unique:advogados,email',
-            'telefone' => 'nullable|string|max:20',
-            'cpf' => 'required|string|max:14|unique:advogados,cpf',
-            'area_atuacao' => 'required|string|max:255',
-        ]);
+        Advogado::create($request->validated());
 
-        $this->advogado->create($validated);
-
-        return redirect()->route('advogados')->with('success', 'Advogado cadastrado com sucesso!');
+        return redirect()
+            ->route('advogados')
+            ->with('success', 'Advogado cadastrado com sucesso!');
     }
 
-    public function edit(Advogado $advogado)
+    public function edit(Advogado $advogado): View
     {
         return view('advogados_edit', compact('advogado'));
     }
 
-    public function update(Request $request, Advogado $advogado)
+    public function update(AdvogadoRequest $request, Advogado $advogado): RedirectResponse
     {
-        $validated = $request->validate([
-            'nome' => 'required|string|max:255',
-            'email' => "required|email|unique:advogados,email,{$advogado->id}",
-            'telefone' => 'nullable|string|max:20',
-            'cpf' => "required|string|max:14|unique:advogados,cpf,{$advogado->id}",
-            'area_atuacao' => 'required|string|max:255',
-        ]);
+        $advogado->update($request->validated());
 
-        $advogado->update($validated);
-
-        return redirect()->route('advogados')->with('success', 'Dados atualizados com sucesso!');
+        return redirect()
+            ->route('advogados')
+            ->with('success', 'Dados atualizados com sucesso!');
     }
 
-    public function destroy(Advogado $advogado)
+    public function destroy(Advogado $advogado): RedirectResponse
     {
         if ($advogado->delete()) {
-            return redirect()->route('advogados')->with('success', 'Advogado excluído com sucesso!');
+            return redirect()
+                ->route('advogados')
+                ->with('success', 'Advogado excluído com sucesso!');
         }
 
-        return redirect()->route('advogados')->with('error', 'Erro ao excluir advogado.');
+        return redirect()
+            ->route('advogados')
+            ->with('error', 'Erro ao excluir advogado.');
     }
 }
