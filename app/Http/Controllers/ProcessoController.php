@@ -6,6 +6,8 @@ use App\Models\Processo;
 use App\Models\Cliente;
 use App\Models\HistoricoProcesso;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProcessoRequest;
+use Carbon\Carbon;
 
 class ProcessoController extends Controller
 {
@@ -43,12 +45,26 @@ class ProcessoController extends Controller
     public function update(Request $request, Processo $processo)
     {
         $validatedData = $request->validate([
-            'nome' => 'required|string|max:255',
+            'nome' => 'required|string|max:45',
             'descricao' => 'nullable|string',
             'cliente_email' => 'required|exists:clientes,email',
         ]);
 
+        if (
+            $request->nome == $processo->nome &&
+            $request->descricao == $processo->descricao &&
+            $request->cliente_email == $processo->cliente->email
+        ) {
+            return redirect()->route('processos')->with('info', 'Nenhuma alteração foi feita no processo.');
+        }
+
         $processo->update($validatedData);
+
+        HistoricoProcesso::create([
+            'processo_id' => $processo->id,
+            'historico' => 'Processo atualizado.',
+            'processo_nome' => $processo->nome,
+        ]);
 
         return redirect()->route('processos')->with('success', 'Processo atualizado com sucesso!');
     }

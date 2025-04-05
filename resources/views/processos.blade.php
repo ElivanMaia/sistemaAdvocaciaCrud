@@ -8,6 +8,10 @@
     <title>Processos</title>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEJgK5w6g7Xy1YXwT7r7/oH6tElQ5paI7B55z4Z1Be12oP1Rxa7yRJisVsZgg" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
 
 </head>
 
@@ -18,7 +22,6 @@
             <ul>
                 <li>
                     <a href="">
-
                         <span class="icon">
                             <img src="{{ asset('assets/imgs/logo.png') }}" alt="Logo" width="54" height="54">
                         </span>
@@ -162,21 +165,36 @@
 
             </div>
 
+            <!-- ================ Ver Histórico ================ -->
+            <div class="button-container">
+                <a href="{{ route('historicoProcessos') }}" class="historico-btn">
+                    Ver Histórico
+                </a>
+            </div>
+
+
             <!-- ================ Order Details List ================= -->
             <div class="details">
                 <div class="recentOrders">
-                @if (session()->has('message'))
-    <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
-        {{ session()->get('message') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
+                    @if (session()->has('success') || session()->has('error') || session()->has('info'))
+                        <div class="container mt-3">
+                            @foreach (['success', 'error', 'info'] as $msg)
+                                @if (session()->has($msg))
+                                    <div id="alert-{{ $msg }}"
+                                        class="alert alert-{{ $msg == 'error' ? 'danger' : $msg }} alert-dismissible fade show"
+                                        role="alert">
+                                        <span>{{ session($msg) }}</span>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Fechar"></button>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endif
 
                     <div class="cardHeader">
                         <h2>Processos</h2>
                         <a href="{{ route('processos.create') }}" class="btn">Novo Processo</a>
-                        <a href="{{ route('historicoProcessos') }}" class="btn" style="margin-left: 10px;">Ver
-                            Histórico</a>
                     </div>
 
                     @if ($processos->isEmpty())
@@ -227,8 +245,9 @@
                             @foreach ($processos as $processo)
                                 <tr>
                                     <td>
-                                        <h4>{{ $processo->nome }} ({{ $processo->descricao }}) - Cliente:
-                                            {{ $processo->cliente->nome }}</h4>
+                                        <h4>{{ $processo->nome }} - Cliente:
+                                            {{ $processo->cliente->nome }}
+                                        </h4>
                                     </td>
                                 </tr>
                             @endforeach
@@ -237,22 +256,33 @@
                 </div>
             </div>
 
-
             <!-- =========== Scripts =========  -->
             <script src="../js/main.js"></script>
             <script>
-    setTimeout(() => {
-        let alerts = document.querySelectorAll('.alert');
-        alerts.forEach(alert => {
-            let bsAlert = new bootstrap.Alert(alert);
-            bsAlert.close();
-        });
-    }, 5000);
-</script>
+                setTimeout(() => {
+                    let alerts = document.querySelectorAll('.alert');
+                    alerts.forEach(alert => {
+                        let bsAlert = new bootstrap.Alert(alert);
+                        bsAlert.close();
+                    });
+                }, 5000);
+            </script>
 
             <!-- ====== ionicons ======= -->
             <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
             <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        setTimeout(() => {
+            let alerts = document.querySelectorAll('.alert-dismissible');
+            alerts.forEach(alert => {
+                let bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+                bsAlert.close();
+            });
+        }, 5000);
+    </script>
+
 </body>
 
 </html>
