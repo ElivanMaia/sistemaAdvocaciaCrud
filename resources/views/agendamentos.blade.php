@@ -8,6 +8,7 @@
     <title>Agendamentos</title>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
 </head>
 
@@ -164,11 +165,23 @@
             <!-- ================ Order Details List ================= -->
             <div class="details">
                 <div class="recentOrders">
-                    @if (session()->has('message'))
-                        <div class="alert-info">
-                            {{ session()->get('message') }}
+                @if (session()->has('success') || session()->has('error') || session()->has('info'))
+                        <div class="container mt-3">
+                            @foreach (['success', 'error', 'info'] as $msg)
+                                @if (session()->has($msg))
+                                    <div id="alert-{{ $msg }}"
+                                        class="alert alert-{{ $msg == 'error' ? 'danger' : $msg }} alert-dismissible fade show"
+                                        role="alert">
+                                        <span>{{ session($msg) }}</span>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Fechar"></button>
+                                    </div>
+                                @endif
+                            @endforeach
                         </div>
                     @endif
+
+
                     <div class="cardHeader">
                         <h2>Agendamentos</h2>
                         <a href="{{ route('agendamentos.create') }}" class="btn">Novo Agendamento</a>
@@ -184,12 +197,13 @@
                                     <td>Descrição</td>
                                     <td>Cliente</td>
                                     <td>Advogado</td>
+                                    <td>Ações</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($agendamentos as $agendamento)
                                     <tr>
-                                        <td>{{ $agendamento->data }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($agendamento->data)->format('d/m/Y H:i') }}</td>
                                         <td>{{ $agendamento->descricao }}</td>
                                         <td>{{ $agendamento->cliente->nome }}</td>
                                         <td>{{ $agendamento->advogado->nome }}</td>
@@ -221,15 +235,20 @@
                         <p class="no-data">Nenhum agendamento adicionado.</p>
                     @else
                         <table>
-                            @foreach ($agendamentos as $agendamento)
-                                <tr>
-                                    <td>
-                                        <h4>{{ $agendamento->data }} - {{ $agendamento->cliente->nome }}<br></h4>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            @foreach ($agendamentos->sortBy(function ($item) {
+                                return abs(\Carbon\Carbon::now()->diffInSeconds($item->data));
+                            }) as $agendamento)
+                                                                    <tr>
+                                                                        <td>
+
+                                                                                                <h4>{{ \Carbon\Carbon::parse($agendamento->data)->format('d/m/Y H:i') }} -
+                                                                                {{ $agendamento->cliente->nome }}</h4>
+                                                                            </td>
+                                                                        </tr>
+                                            @endforeach
                         </table>
                     @endif
+
                 </div>
             </div>
         </div>
@@ -237,15 +256,19 @@
 
     <!-- =========== Scripts =========  -->
     <script src="../js/main.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
-    setTimeout(() => {
-        let alerts = document.querySelectorAll('.alert');
-        alerts.forEach(alert => {
-            let bsAlert = new bootstrap.Alert(alert);
-            bsAlert.close();
-        });
-    }, 5000);
-</script>
+        setTimeout(() => {
+            let alerts = document.querySelectorAll('.alert-dismissible');
+            alerts.forEach(alert => {
+                let bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+                bsAlert.close();
+            });
+        }, 5000);
+    </script>
+
 
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

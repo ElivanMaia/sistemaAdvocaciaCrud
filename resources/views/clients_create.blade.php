@@ -6,25 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Clientes</title>
-
-    <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KyZXEJv+u5O1/21t9b/aK4L5e+zg5n52ZZkY94kdDmg1VV5zz00Ch2BStQKpfFJs" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
-    <!-- ======= CSS do Formulário ======= -->
     <style>
         .form-card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
             width: 100%;
-            max-width: 500px;
-            margin: 20px auto;
+            max-width: 550px;
+            margin: 30px auto;
         }
 
         .form-container {
@@ -33,21 +28,36 @@
         }
 
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .input-group label {
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-weight: 600;
+            margin-bottom: 8px;
             display: block;
+            color: #374151;
         }
 
-        .input-group input {
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
+            padding: 12px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: #f9fafb;
+            color: #111827;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            border-color: #3b82f6;
+            outline: none;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
         }
 
         .btn {
@@ -63,7 +73,15 @@
         .btn:hover {
             background: #2563eb;
         }
+
+        @media (max-width: 600px) {
+            .form-card {
+                padding: 20px;
+            }
+        }
     </style>
+
+
 </head>
 
 <body>
@@ -213,43 +231,43 @@
 
             <!-- ==================== Formulário ==================== -->
             <div class="form-card">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                <h2 class="mb-4" style="font-weight: bold; padding-bottom: 10px;">Cadastrar Cliente</h2>
 
-                <h2 style="padding-bottom: 10px">Cadastrar Cliente</h2>
                 <form action="{{ route('clients.store') }}" method="POST" class="form-container">
                     @csrf
+
                     <div class="input-group">
                         <label for="nome">Nome:</label>
                         <input type="text" id="nome" name="nome" placeholder="Digite o nome do cliente" required>
                     </div>
+
                     <div class="input-group">
                         <label for="email">E-mail:</label>
                         <input type="email" id="email" name="email" placeholder="Digite o e-mail do cliente" required>
                     </div>
+
                     <div class="input-group">
                         <label for="telefone">Telefone:</label>
                         <input type="text" id="telefone" name="telefone" placeholder="Digite o telefone" required>
                     </div>
+
                     <div class="input-group">
                         <label for="cpf">CPF:</label>
                         <input type="text" id="cpf" name="cpf" placeholder="Digite o CPF" required>
                     </div>
+
                     <div class="input-group">
                         <label for="data_nasc">Data de Nascimento:</label>
                         <input type="date" id="data_nasc" name="data_nasc" required>
                     </div>
-                    <button type="submit" class="btn">Cadastrar Cliente</button>
+
+                        <button type="submit" class="btn w-100">Cadastrar</button>
                 </form>
             </div>
+
+
         </div>
+    </div>
     </div>
 
     <!-- =========== Scripts =========  -->

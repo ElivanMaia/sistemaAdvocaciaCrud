@@ -617,9 +617,12 @@ body {
 }
 
 .alert-info::before {
-  content: "\F05A";
+  content: "\f430";
+  font-family: "bootstrap-icons";
   color: #0dcaf0;
+  margin-right: 8px;
 }
+
 
 .alert .btn-close {
   margin-left: auto;

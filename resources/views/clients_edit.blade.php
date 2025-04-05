@@ -17,51 +17,80 @@
 
     <style>
         .form-card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
-            margin: 20px auto;
-        }
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 550px;
+    margin: 30px auto;
+}
 
-        .form-container {
-            display: flex;
-            flex-direction: column;
-        }
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
 
-        .input-group {
-            margin-bottom: 15px;
-        }
+.input-group {
+    margin-bottom: 20px;
+}
 
-        .input-group label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-        }
+.input-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    color: #374151;
+}
 
-        .input-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f9fafb;
+    color: #111827;
+    transition: all 0.2s ease-in-out;
+}
 
-        .btn {
-            background: #3b82f6;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    border-color: #3b82f6;
+    outline: none;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
 
-        .btn:hover {
-            background: #2563eb;
-        }
+.btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #2563eb;
+}
+
+.alert {
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+    .form-card {
+        padding: 20px;
+    }
+}
+
     </style>
 </head>
 
@@ -212,45 +241,41 @@
 
             <!-- ==================== Formulário ==================== -->
             <div class="form-card">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+    <h2 class="mb-4" style="font-weight: bold; padding-bottom: 10px;">Editar Cliente</h2>
 
-                <h2 style="padding-bottom: 10px">Editar Cliente</h2>
-                <form action="{{ route('clients.update', ['cliente' => $cliente->id]) }}" method="POST"
-                    class="form-container">
-                    @csrf
-                    @method('PUT')
+    <form action="{{ route('clients.update', $cliente->id) }}" method="POST" class="form-container">
+        @csrf
+        @method('PUT')
 
-                    <div class="input-group">
-                        <label for="nome">Nome:</label>
-                        <input type="text" id="nome" name="nome" value="{{ $cliente->nome }}" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="email">E-mail:</label>
-                        <input type="email" id="email" name="email" value="{{ $cliente->email }}" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="telefone">Telefone:</label>
-                        <input type="text" id="telefone" name="telefone" value="{{ $cliente->telefone }}" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="cpf">CPF:</label>
-                        <input type="text" id="cpf" name="cpf" value="{{ $cliente->cpf }}" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="data_nasc">Data de Nascimento:</label>
-                        <input type="date" id="data_nasc" name="data_nasc" value="{{ $cliente->data_nasc }}" required>
-                    </div>
-                    <button type="submit" class="btn">Salvar Alterações</button>
-                </form>
-            </div>
+        <div class="input-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" value="{{ $cliente->nome }}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ $cliente->email }}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefone" value="{{ $cliente->telefone }}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="cpf">CPF:</label>
+            <input type="text" id="cpf" name="cpf" value="{{ $cliente->cpf }}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="data_nasc">Data de Nascimento:</label>
+            <input type="date" id="data_nasc" name="data_nasc" value="{{ $cliente->data_nasc }}" required>
+        </div>
+
+        <button type="submit" class="btn w-100">Salvar Alterações</button>
+    </form>
+</div>
+
         </div>
     </div>
 
@@ -258,7 +283,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-
     <script>
         setTimeout(() => {
             let alerts = document.querySelectorAll('.alert');
@@ -278,9 +302,9 @@
             document.getElementById("data_nasc").setAttribute("max", today);
         });
     </script>
+    
+    <script src="{{ asset('js/main.js') }}"></script>
 
-
-    <script src="../js/main.js"></script>
 
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

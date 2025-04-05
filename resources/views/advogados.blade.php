@@ -164,11 +164,13 @@
             <!-- ================ Order Details List ================= -->
             <div class="details">
                 <div class="recentOrders">
-                    @if (session()->has('message'))
-                        <div class="alert-info">
-                            {{ session()->get('message') }}
-                        </div>
-                    @endif
+                @if (session()->has('message'))
+    <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
+        {{ session()->get('message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
                     <div class="cardHeader">
                         <h2>Dados dos Advogados</h2>
                         <a href="{{ route('advogados.create') }}" class="btn">Cadastrar</a>

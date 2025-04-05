@@ -6,6 +6,8 @@ use App\Models\Agendamento;
 use App\Models\Cliente;
 use App\Models\Advogado;
 use Illuminate\Http\Request;
+use App\Http\Requests\AgendamentoRequest;
+use Carbon\Carbon;
 
 class AgendamentoController extends Controller
 {
@@ -17,8 +19,8 @@ class AgendamentoController extends Controller
 
     public function create()
     {
-        $clientes = Cliente::all(); 
-        $advogados = Advogado::all(); 
+        $clientes = Cliente::all();
+        $advogados = Advogado::all();
         return view('agendamentos_create', compact('clientes', 'advogados'));
     }
 
@@ -30,33 +32,33 @@ class AgendamentoController extends Controller
         return view('agendamentos_edit', compact('agendamento', 'clientes', 'advogados'));
     }
 
-    public function store(Request $request)
+    public function store(AgendamentoRequest $request)
     {
-        $validatedData = $request->validate([
-            'data' => 'required|date',
-            'advogados_id' => 'required|exists:advogados,id',
-            'clientes_id' => 'required|exists:clientes,id',
-            'descricao' => 'nullable|string|max:255',
-        ]);
-
-        Agendamento::create($validatedData);
+        Agendamento::create($request->validated());
 
         return redirect()->route('agendamentos')->with('success', 'Agendamento criado com sucesso!');
     }
 
-    public function update(Request $request, Agendamento $agendamento)
-    {
-        $validatedData = $request->validate([
-            'data' => 'required|date',
-            'advogados_id' => 'required|exists:advogados,id',
-            'clientes_id' => 'required|exists:clientes,id',
-            'descricao' => 'required|string|max:255',
-        ]);
 
-        $agendamento->update($validatedData);
+    public function update(AgendamentoRequest $request, Agendamento $agendamento)
+{
+    $novaData = Carbon::parse($request->data)->format('Y-m-d H:i:s');
+    $dataAtual = Carbon::parse($agendamento->data)->format('Y-m-d H:i:s');
 
-        return redirect()->route('agendamentos')->with('success', 'Agendamento atualizado com sucesso!');
+    if (
+        $novaData === $dataAtual &&
+        $request->advogados_id == $agendamento->advogados_id &&
+        $request->clientes_id == $agendamento->clientes_id &&
+        ($request->descricao ?? null) === $agendamento->descricao
+    ) {
+        return redirect()->route('agendamentos')->with('info', 'Nenhuma alteração foi feita.');
     }
+
+    $agendamento->update($request->validated());
+
+    return redirect()->route('agendamentos')->with('success', 'Agendamento atualizado com sucesso!');
+}
+
 
     public function destroy(Agendamento $agendamento)
     {

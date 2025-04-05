@@ -43,16 +43,24 @@ class ClienteController extends Controller
         return view('clients_edit', compact('cliente', 'clientes'));
     }
 
-    public function update(ClienteRequest $request, string $id)
+    public function update(ClienteRequest $request, Cliente $cliente)
     {
-        try {
-            $cliente = Cliente::findOrFail($id);
-            $cliente->update($request->validated());
-            return redirect()->route('clients')->with('success', 'Dados atualizados com sucesso!');
-        } catch (\Exception $e) {
-            return redirect()->back()->withInput()->withErrors(['error' => 'Erro ao atualizar dados.']);
+        if (
+            $request->nome === $cliente->nome &&
+            $request->email === $cliente->email &&
+            $request->telefone === $cliente->telefone &&
+            $request->cpf === $cliente->cpf &&
+            $request->data_nasc === $cliente->data_nasc
+        ) {
+            return redirect()->route('clients')->with('info', 'Nenhuma alteração foi feita.');
         }
+
+        $cliente->update($request->validated());
+
+        return redirect()->route('clients')->with('success', 'Cliente atualizado com sucesso.');
     }
+
+
 
     public function destroy(string $id)
     {
