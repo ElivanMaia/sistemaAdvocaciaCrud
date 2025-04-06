@@ -17,8 +17,8 @@
     <div style="background-image: url('assets/imgs/back.jpg'); background-size: 100% auto; background-position: center; background-repeat: no-repeat;">
 
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 text-white">
-            Moreira Advocacia
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
+            <div class="text-white">Moreira Advocacia</div>
             <div>
                 <a href="/">
                     <img src="assets/imgs/logo.png" alt="LOGO" class="w-20 h-20 fill-current" />
