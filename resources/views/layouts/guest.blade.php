@@ -14,13 +14,14 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <div style="background-image: url('assets/imgs/background.png')">
+    <div style="background-image: url('assets/imgs/back.jpg'); background-size: 100% auto; background-position: center; background-repeat: no-repeat;">
+
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
-            Sistema de Agendamento
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 text-white">
+            Moreira Advocacia
             <div>
                 <a href="/">
-                    <img src="assets/imgs/blackLogo.png" alt="LOGO" class="w-20 h-20 fill-current" />
+                    <img src="assets/imgs/logo.png" alt="LOGO" class="w-20 h-20 fill-current" />
                 </a>
             </div>
 

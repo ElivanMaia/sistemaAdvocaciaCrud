@@ -22,7 +22,7 @@
                         <span class="icon">
                             <img src="{{ asset('assets/imgs/logo.png') }}" alt="Logo" width="54" height="54">
                         </span>
-                        <span class="title">Sistema de Agendamento</span>
+                        <span class="title">Moreira Advocacia</span>
                     </a>
                 </li>
                 <li>
