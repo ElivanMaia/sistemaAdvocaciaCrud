@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KyZXEJgK5w6g7Xy1YXwT7r7/oH6tElQ5paI7B55z4Z1Be12oP1Rxa7yRJisVsZgg" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
 
 </head>
@@ -90,7 +90,7 @@
                     <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
                         @csrf
                     </form>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="#" onclick="event.preventDefault(); confirmLogout();">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -273,15 +273,22 @@
             <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        setTimeout(() => {
-            let alerts = document.querySelectorAll('.alert-dismissible');
-            alerts.forEach(alert => {
-                let bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
-                bsAlert.close();
-            });
-        }, 5000);
-    </script>
+            <script>
+                setTimeout(() => {
+                    let alerts = document.querySelectorAll('.alert-dismissible');
+                    alerts.forEach(alert => {
+                        let bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+                        bsAlert.close();
+                    });
+                }, 5000);
+            </script>
+            <script>
+                function confirmLogout() {
+                    if (confirm('Tem certeza que deseja sair da conta?')) {
+                        document.getElementById('logout-form').submit();
+                    }
+                }
+            </script>
 
 </body>
 

@@ -159,7 +159,7 @@
                     <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
                         @csrf
                     </form>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="#" onclick="event.preventDefault(); confirmLogout();">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -231,7 +231,7 @@
 
             <!-- ==================== Formulário ==================== -->
             <div class="form-card">
-            @if (session()->has('message'))
+                @if (session()->has('message'))
                     <div class="alert alert-info">{{ session()->get('message') }}</div>
                 @endif
 
@@ -274,7 +274,7 @@
                         <input type="date" id="data_nasc" name="data_nasc" required>
                     </div>
 
-                        <button type="submit" class="btn w-100">Cadastrar</button>
+                    <button type="submit" class="btn w-100">Cadastrar</button>
                 </form>
             </div>
 
@@ -304,6 +304,13 @@
             let today = new Date().toISOString().split('T')[0];
             document.getElementById("data_nasc").setAttribute("max", today);
         });
+    </script>
+    <script>
+        function confirmLogout() {
+            if (confirm('Tem certeza que deseja sair da conta?')) {
+                document.getElementById('logout-form').submit();
+            }
+        }
     </script>
     <script src="../js/main.js"></script>
 

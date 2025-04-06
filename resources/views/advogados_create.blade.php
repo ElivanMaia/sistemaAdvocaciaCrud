@@ -109,10 +109,13 @@
                                 name="settings-outline"></ion-icon></span><span class="title">Configurações</span></a>
                 </li>
                 <li>
-                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">@csrf
+                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                        @csrf
                     </form>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                    <a href="#" onclick="event.preventDefault(); confirmLogout();">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
                         <span class="title">Sair da Conta</span>
                     </a>
                 </li>
@@ -231,6 +234,13 @@
                 bsAlert.close();
             });
         }, 5000);
+    </script>
+    <script>
+        function confirmLogout() {
+            if (confirm('Tem certeza que deseja sair da conta?')) {
+                document.getElementById('logout-form').submit();
+            }
+        }
     </script>
     <script src="../js/main.js"></script>
 

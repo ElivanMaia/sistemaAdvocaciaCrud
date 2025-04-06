@@ -81,24 +81,24 @@
         }
 
         .input-group select,
-.input-group textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 1rem;
-    background-color: #f9fafb;
-    color: #111827;
-    transition: all 0.2s ease-in-out;
-}
+        .input-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: #f9fafb;
+            color: #111827;
+            transition: all 0.2s ease-in-out;
+        }
 
-.input-group select:focus,
-.input-group textarea:focus {
-    border-color: #3b82f6;
-    outline: none;
-    background-color: #ffffff;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-}
+        .input-group select:focus,
+        .input-group textarea:focus {
+            border-color: #3b82f6;
+            outline: none;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
 
 
         @media (max-width: 600px) {
@@ -185,7 +185,7 @@
                     <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
                         @csrf
                     </form>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="#" onclick="event.preventDefault(); confirmLogout();">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -334,6 +334,13 @@
             let today = new Date().toISOString().split('T')[0];
             document.getElementById("data_nasc").setAttribute("max", today);
         });
+    </script>
+    <script>
+        function confirmLogout() {
+            if (confirm('Tem certeza que deseja sair da conta?')) {
+                document.getElementById('logout-form').submit();
+            }
+        }
     </script>
 
     <script src="{{ asset('js/main.js') }}"></script>

@@ -7,8 +7,6 @@
     <title>Editar Advogado</title>
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KyZXEJv+u5O1/21t9b/aK4L5e+zg5n52ZZkY94kdDmg1VV5zz00Ch2BStQKpfFJs" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
@@ -146,8 +144,10 @@
                     <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
                         @csrf
                     </form>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                    <a href="#" onclick="event.preventDefault(); confirmLogout();">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
                         <span class="title">Sair da Conta</span>
                     </a>
                 </li>
@@ -217,7 +217,8 @@
 
                 <h2 class="mb-4" style="font-weight: bold; padding-bottom: 10px;">Editar Advogado</h2>
 
-                <form action="{{ route('advogados.update', ['advogado' => $advogado->id]) }}" method="POST" class="form-container">
+                <form action="{{ route('advogados.update', ['advogado' => $advogado->id]) }}" method="POST"
+                    class="form-container">
                     @csrf
                     @method('PUT')
 
@@ -243,7 +244,8 @@
 
                     <div class="input-group">
                         <label for="area_atuacao">Área de Atuação:</label>
-                        <input type="text" id="area_atuacao" name="area_atuacao" value="{{ $advogado->area_atuacao }}" required>
+                        <input type="text" id="area_atuacao" name="area_atuacao" value="{{ $advogado->area_atuacao }}"
+                            required>
                     </div>
 
                     <button type="submit" class="btn w-100">Salvar Alterações</button>
@@ -269,6 +271,13 @@
             $('#telefone').mask('(00) 00000-0000');
             $('#cpf').mask('000.000.000-00');
         });
+    </script>
+    <script>
+        function confirmLogout() {
+            if (confirm('Tem certeza que deseja sair da conta?')) {
+                document.getElementById('logout-form').submit();
+            }
+        }
     </script>
 
     <script src="{{ asset('js/main.js') }}"></script>

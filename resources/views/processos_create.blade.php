@@ -135,10 +135,13 @@
                     </a>
                 </li>
                 <li>
-                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">@csrf
+                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                        @csrf
                     </form>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                    <a href="#" onclick="event.preventDefault(); confirmLogout();">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
                         <span class="title">Sair da Conta</span>
                     </a>
                 </li>
@@ -195,7 +198,7 @@
 
             <div class="form-card">
                 <h2 class="mb-4" style="font-weight: bold; padding-bottom: 10px;">Criar Processo</h2>
-                
+
                 @if (session()->has('message'))
                     <div class="alert alert-info">{{ session('message') }}</div>
                 @endif
@@ -215,12 +218,14 @@
 
                     <div class="input-group">
                         <label for="nome">Nome do Processo:</label>
-                        <input type="text" id="nome" name="nome" placeholder="Digite o nome do processo..." value="{{ old('nome') }}" required>
+                        <input type="text" id="nome" name="nome" placeholder="Digite o nome do processo..."
+                            value="{{ old('nome') }}" required>
                     </div>
 
                     <div class="input-group">
                         <label for="descricao">Descrição:</label>
-                        <textarea id="descricao" name="descricao" rows="3" placeholder="Digite a descrição do processo...">{{ old('descricao') }}</textarea>
+                        <textarea id="descricao" name="descricao" rows="3"
+                            placeholder="Digite a descrição do processo...">{{ old('descricao') }}</textarea>
                     </div>
 
                     <div class="input-group">
@@ -241,6 +246,13 @@
 
     <script src="../js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function confirmLogout() {
+            if (confirm('Tem certeza que deseja sair da conta?')) {
+                document.getElementById('logout-form').submit();
+            }
+        }
+    </script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>

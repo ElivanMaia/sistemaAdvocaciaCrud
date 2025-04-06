@@ -137,10 +137,13 @@
                     </a>
                 </li>
                 <li>
-                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">@csrf
+                    <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                        @csrf
                     </form>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                    <a href="#" onclick="event.preventDefault(); confirmLogout();">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
                         <span class="title">Sair da Conta</span>
                     </a>
                 </li>
@@ -221,7 +224,8 @@
 
                     <div class="input-group">
                         <label for="descricao">Descrição:</label>
-                        <textarea id="descricao" name="descricao" rows="3" placeholder="Digite a descrição do agendamento..."
+                        <textarea id="descricao" name="descricao" rows="3"
+                            placeholder="Digite a descrição do agendamento..."
                             required>{{ old('descricao') }}</textarea>
                     </div>
 
@@ -262,6 +266,13 @@
             let today = new Date().toISOString().split('T')[0];
             document.getElementById("data_nasc")?.setAttribute("max", today);
         });
+    </script>
+    <script>
+        function confirmLogout() {
+            if (confirm('Tem certeza que deseja sair da conta?')) {
+                document.getElementById('logout-form').submit();
+            }
+        }
     </script>
 
     <script src="{{ asset('js/main.js') }}"></script>

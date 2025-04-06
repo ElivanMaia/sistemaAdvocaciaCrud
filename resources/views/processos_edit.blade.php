@@ -183,7 +183,7 @@
                     <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
                         @csrf
                     </form>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="#" onclick="event.preventDefault(); confirmLogout();">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -287,8 +287,7 @@
                         <label for="cliente_email">Cliente</label>
                         <select id="cliente_email" name="cliente_email" required>
                             @foreach ($clientes as $cliente)
-                                <option value="{{ $cliente->email }}"
-                                    {{ $processo->cliente_email == $cliente->email ? 'selected' : '' }}>
+                                <option value="{{ $cliente->email }}" {{ $processo->cliente_email == $cliente->email ? 'selected' : '' }}>
                                     {{ $cliente->nome }}
                                 </option>
                             @endforeach
@@ -304,6 +303,13 @@
     <!-- =============== Scripts ================== -->
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function confirmLogout() {
+            if (confirm('Tem certeza que deseja sair da conta?')) {
+                document.getElementById('logout-form').submit();
+            }
+        }
+    </script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
