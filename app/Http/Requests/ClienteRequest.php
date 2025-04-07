@@ -8,17 +8,13 @@ use Illuminate\Validation\Rule;
 
 class ClienteRequest extends FormRequest
 {
-    /**
-     * Determina se o usuário tem permissão para fazer esta requisição.
-     */
+    
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Regras de validação para a requisição.
-     */
+    
     public function rules(): array
     {
         $clienteId = $this->route('cliente');
@@ -43,9 +39,7 @@ class ClienteRequest extends FormRequest
     }
 
 
-    /**
-     * Mensagens personalizadas para os erros de validação.
-     */
+   
     public function messages(): array
     {
         return [
