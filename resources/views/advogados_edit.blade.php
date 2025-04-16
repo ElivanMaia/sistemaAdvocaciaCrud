@@ -223,27 +223,27 @@
                     @method('PUT')
 
                     <div class="input-group">
-                        <label for="nome">Nome:</label>
+                        <label for="nome">Nome:<span style="color: red">*</span></label>
                         <input type="text" id="nome" name="nome" value="{{ $advogado->nome }}" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="email">Email:</label>
+                        <label for="email">Email:<span style="color: red">*</span></label>
                         <input type="email" id="email" name="email" value="{{ $advogado->email }}" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="telefone">Telefone:</label>
+                        <label for="telefone">Telefone:<span style="color: red">*</span></label>
                         <input type="text" id="telefone" name="telefone" value="{{ $advogado->telefone }}" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="cpf">CPF:</label>
+                        <label for="cpf">CPF:<span style="color: red">*</span></label>
                         <input type="text" id="cpf" name="cpf" value="{{ $advogado->cpf }}" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="area_atuacao">Área de Atuação:</label>
+                        <label for="area_atuacao">Área de Atuação:<span style="color: red">*</span></label>
                         <input type="text" id="area_atuacao" name="area_atuacao" value="{{ $advogado->area_atuacao }}"
                             required>
                     </div>

@@ -250,27 +250,27 @@
                     @csrf
 
                     <div class="input-group">
-                        <label for="nome">Nome:</label>
+                        <label for="nome">Nome:<span style="color: red">*</span></label>
                         <input type="text" id="nome" name="nome" placeholder="Digite o nome do cliente" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="email">E-mail:</label>
+                        <label for="email">E-mail:<span style="color: red">*</span></label>
                         <input type="email" id="email" name="email" placeholder="Digite o e-mail do cliente" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="telefone">Telefone:</label>
+                        <label for="telefone">Telefone:<span style="color: red">*</span></label>
                         <input type="text" id="telefone" name="telefone" placeholder="Digite o telefone" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="cpf">CPF:</label>
+                        <label for="cpf">CPF:<span style="color: red">*</span></label>
                         <input type="text" id="cpf" name="cpf" placeholder="Digite o CPF" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="data_nasc">Data de Nascimento:</label>
+                        <label for="data_nasc">Data de Nascimento:<span style="color: red">*</span></label>
                         <input type="date" id="data_nasc" name="data_nasc" required>
                     </div>
 

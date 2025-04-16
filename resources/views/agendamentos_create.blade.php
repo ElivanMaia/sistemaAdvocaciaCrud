@@ -218,12 +218,12 @@
                     @csrf
 
                     <div class="input-group">
-                        <label for="data">Data:</label>
+                        <label for="data">Data:<span style="color: red">*</span></label>
                         <input type="datetime-local" id="data" name="data" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="descricao">Descrição:</label>
+                        <label for="descricao">Descrição:<span style="color: red">*</span></label>
                         <textarea id="descricao" name="descricao" rows="3"
                             placeholder="Digite a descrição do agendamento..."
                             required>{{ old('descricao') }}</textarea>
@@ -231,7 +231,7 @@
 
 
                     <div class="input-group">
-                        <label for="clientes_id">Cliente:</label>
+                        <label for="clientes_id">Cliente:<span style="color: red">*</span></label>
                         <select id="clientes_id" name="clientes_id" required>
                             <option value="" disabled selected>Selecione um cliente</option>
                             @foreach ($clientes as $cliente)
@@ -241,7 +241,7 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="advogados_id">Advogado:</label>
+                        <label for="advogados_id">Advogado:<span style="color: red">*</span></label>
                         <select id="advogados_id" name="advogados_id" required>
                             <option value="" disabled selected>Selecione um advogado</option>
                             @foreach ($advogados as $advogado)

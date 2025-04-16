@@ -217,19 +217,19 @@
                     @csrf
 
                     <div class="input-group">
-                        <label for="nome">Nome do Processo:</label>
+                        <label for="nome">Nome do Processo:<span style="color: red">*</span></label>
                         <input type="text" id="nome" name="nome" placeholder="Digite o nome do processo..."
                             value="{{ old('nome') }}" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="descricao">Descrição:</label>
+                        <label for="descricao">Descrição:<span style="color: red">*</span></label>
                         <textarea id="descricao" name="descricao" rows="3"
                             placeholder="Digite a descrição do processo...">{{ old('descricao') }}</textarea>
                     </div>
 
                     <div class="input-group">
-                        <label for="cliente_email">Cliente:</label>
+                        <label for="cliente_email">Cliente:<span style="color: red">*</span></label>
                         <select id="cliente_email" name="cliente_email" required>
                             <option value="" disabled selected>Selecione um cliente</option>
                             @foreach ($clientes as $cliente)

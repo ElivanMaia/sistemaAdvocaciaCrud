@@ -260,27 +260,27 @@
                     @method('PUT')
 
                     <div class="input-group">
-                        <label for="nome">Nome:</label>
+                        <label for="nome">Nome:<span style="color: red">*</span></label>
                         <input type="text" id="nome" name="nome" value="{{ $cliente->nome }}" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="email">Email:</label>
+                        <label for="email">Email:<span style="color: red">*</span></label>
                         <input type="email" id="email" name="email" value="{{ $cliente->email }}" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="telefone">Telefone:</label>
+                        <label for="telefone">Telefone:<span style="color: red">*</span></label>
                         <input type="text" id="telefone" name="telefone" value="{{ $cliente->telefone }}" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="cpf">CPF:</label>
+                        <label for="cpf">CPF:<span style="color: red">*</span></label>
                         <input type="text" id="cpf" name="cpf" value="{{ $cliente->cpf }}" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="data_nasc">Data de Nascimento:</label>
+                        <label for="data_nasc">Data de Nascimento:<span style="color: red">*</span></label>
                         <input type="date" id="data_nasc" name="data_nasc" value="{{ $cliente->data_nasc }}" required>
                     </div>
 

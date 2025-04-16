@@ -186,27 +186,27 @@
                     @csrf
 
                     <div class="input-group">
-                        <label for="nome">Nome</label>
+                        <label for="nome">Nome:<span style="color: red">*</span></label>
                         <input type="text" id="nome" name="nome" required placeholder="Digite o nome completo">
                     </div>
 
                     <div class="input-group">
-                        <label for="email">E-mail</label>
+                        <label for="email">E-mail:<span style="color: red">*</span></label>
                         <input type="email" id="email" name="email" required placeholder="exemplo@dominio.com">
                     </div>
 
                     <div class="input-group">
-                        <label for="telefone">Telefone</label>
+                        <label for="telefone">Telefone:<span style="color: red">*</span></label>
                         <input type="text" id="telefone" name="telefone" required placeholder="(00) 00000-0000">
                     </div>
 
                     <div class="input-group">
-                        <label for="cpf">CPF</label>
+                        <label for="cpf">CPF:<span style="color: red">*</span></label>
                         <input type="text" id="cpf" name="cpf" required placeholder="000.000.000-00">
                     </div>
 
                     <div class="input-group">
-                        <label for="area_atuacao">Área de Atuação</label>
+                        <label for="area_atuacao">Área de Atuação:<span style="color: red">*</span></label>
                         <input type="text" id="area_atuacao" name="area_atuacao" required
                             placeholder="Ex: Direito Civil, Penal...">
                     </div>

@@ -277,18 +277,18 @@
                     @method('PUT')
 
                     <div class="input-group">
-                        <label for="data">Data:</label>
+                        <label for="data">Data:<span style="color: red">*</span></label>
                         <input type="datetime-local" id="data" name="data" value="{{ $agendamento->data }}" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="descricao">Descrição:</label>
+                        <label for="descricao">Descrição:<span style="color: red">*</span></label>
                         <textarea id="descricao" name="descricao" rows="3"
                             required>{{ $agendamento->descricao }}</textarea>
                     </div>
 
                     <div class="input-group">
-                        <label for="clientes_id">Cliente:</label>
+                        <label for="clientes_id">Cliente:<span style="color: red">*</span></label>
                         <select id="clientes_id" name="clientes_id" required>
                             @foreach ($clientes as $cliente)
                                 <option value="{{ $cliente->id }}" {{ $agendamento->clientes_id == $cliente->id ? 'selected' : '' }}>
@@ -299,7 +299,7 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="advogados_id">Advogado:</label>
+                        <label for="advogados_id">Advogado:<span style="color: red">*</span></label>
                         <select id="advogados_id" name="advogados_id" required>
                             @foreach ($advogados as $advogado)
                                 <option value="{{ $advogado->id }}" {{ $agendamento->advogados_id == $advogado->id ? 'selected' : '' }}>

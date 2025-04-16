@@ -274,17 +274,17 @@
                     @method('PUT')
 
                     <div class="input-group">
-                        <label for="nome">Nome do Processo</label>
+                        <label for="nome">Nome do Processo:<span style="color: red">*</span></label>
                         <input type="text" id="nome" name="nome" value="{{ $processo->nome }}" required>
                     </div>
 
                     <div class="input-group">
-                        <label for="descricao">Descrição</label>
+                        <label for="descricao">Descrição:<span style="color: red">*</span></label>
                         <textarea id="descricao" name="descricao" rows="3">{{ $processo->descricao }}</textarea>
                     </div>
 
                     <div class="input-group">
-                        <label for="cliente_email">Cliente</label>
+                        <label for="cliente_email">Cliente:<span style="color: red">*</span></label>
                         <select id="cliente_email" name="cliente_email" required>
                             @foreach ($clientes as $cliente)
                                 <option value="{{ $cliente->email }}" {{ $processo->cliente_email == $cliente->email ? 'selected' : '' }}>
