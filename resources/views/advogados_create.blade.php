@@ -172,44 +172,53 @@
                     <div class="alert alert-info">{{ session()->get('message') }}</div>
                 @endif
 
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul class="mb-0" style="padding-left: 6px;">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
                 <form action="{{ route('advogados.store') }}" method="POST" class="form-container">
                     @csrf
 
                     <div class="input-group">
                         <label for="nome">Nome:<span style="color: red">*</span></label>
-                        <input type="text" id="nome" name="nome" required placeholder="Digite o nome completo">
+                        <input type="text" id="nome" name="nome" value="{{ old('nome') }}" required placeholder="Digite o nome completo">
+                        @error('nome')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
+                    
 
                     <div class="input-group">
                         <label for="email">E-mail:<span style="color: red">*</span></label>
-                        <input type="email" id="email" name="email" required placeholder="exemplo@dominio.com">
+                        <input type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="exemplo@dominio.com">
+                        @error('email')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
+                    
 
                     <div class="input-group">
                         <label for="telefone">Telefone:<span style="color: red">*</span></label>
-                        <input type="text" id="telefone" name="telefone" required placeholder="(00) 00000-0000">
+                        <input type="text" id="telefone" name="telefone" value="{{ old('telefone') }}" required placeholder="(00) 00000-0000">
+                        @error('telefone')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
+                    
 
                     <div class="input-group">
                         <label for="cpf">CPF:<span style="color: red">*</span></label>
-                        <input type="text" id="cpf" name="cpf" required placeholder="000.000.000-00">
+                        <input type="text" id="cpf" name="cpf" value="{{ old('cpf') }}" required placeholder="000.000.000-00">
+                        @error('cpf')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
+                    
 
                     <div class="input-group">
                         <label for="area_atuacao">Área de Atuação:<span style="color: red">*</span></label>
-                        <input type="text" id="area_atuacao" name="area_atuacao" required
-                            placeholder="Ex: Direito Civil, Penal...">
+                        <input type="text" id="area_atuacao" name="area_atuacao" value="{{ old('area_atuacao') }}" required placeholder="Ex: Direito Civil, Penal...">
+                        @error('area_atuacao')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
+                    
 
                     <button type="submit" class="btn w-100">Cadastrar</button>
                 </form>

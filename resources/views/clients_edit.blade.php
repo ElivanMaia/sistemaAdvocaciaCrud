@@ -244,48 +244,55 @@
                     <div class="alert alert-info">{{ session()->get('message') }}</div>
                 @endif
 
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul class="mb-0" style="padding-left: 6px;">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 <h2 class="mb-4" style="font-weight: bold; padding-bottom: 10px;">Editar Cliente</h2>
 
                 <form action="{{ route('clients.update', $cliente->id) }}" method="POST" class="form-container">
                     @csrf
                     @method('PUT')
-
+                
                     <div class="input-group">
                         <label for="nome">Nome:<span style="color: red">*</span></label>
-                        <input type="text" id="nome" name="nome" value="{{ $cliente->nome }}" required>
+                        <input type="text" id="nome" name="nome" value="{{ old('nome', $cliente->nome) }}" required>
+                        @error('nome')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <div class="input-group">
                         <label for="email">Email:<span style="color: red">*</span></label>
-                        <input type="email" id="email" name="email" value="{{ $cliente->email }}" required>
+                        <input type="email" id="email" name="email" value="{{ old('email', $cliente->email) }}" required>
+                        @error('email')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <div class="input-group">
                         <label for="telefone">Telefone:<span style="color: red">*</span></label>
-                        <input type="text" id="telefone" name="telefone" value="{{ $cliente->telefone }}" required>
+                        <input type="text" id="telefone" name="telefone" value="{{ old('telefone', $cliente->telefone) }}" required>
+                        @error('telefone')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <div class="input-group">
                         <label for="cpf">CPF:<span style="color: red">*</span></label>
-                        <input type="text" id="cpf" name="cpf" value="{{ $cliente->cpf }}" required>
+                        <input type="text" id="cpf" name="cpf" value="{{ old('cpf', $cliente->cpf) }}" required>
+                        @error('cpf')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <div class="input-group">
                         <label for="data_nasc">Data de Nascimento:<span style="color: red">*</span></label>
-                        <input type="date" id="data_nasc" name="data_nasc" value="{{ $cliente->data_nasc }}" required>
+                        <input type="date" id="data_nasc" name="data_nasc" value="{{ old('data_nasc', $cliente->data_nasc) }}" required>
+                        @error('data_nasc')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <button type="submit" class="btn w-100">Salvar Alterações</button>
                 </form>
+                
             </div>
 
         </div>

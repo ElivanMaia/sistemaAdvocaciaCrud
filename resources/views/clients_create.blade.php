@@ -235,47 +235,55 @@
                     <div class="alert alert-info">{{ session()->get('message') }}</div>
                 @endif
 
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul class="mb-0" style="padding-left: 6px;">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 <h2 class="mb-4" style="font-weight: bold; padding-bottom: 10px;">Cadastrar Cliente</h2>
 
                 <form action="{{ route('clients.store') }}" method="POST" class="form-container">
                     @csrf
-
+                
                     <div class="input-group">
                         <label for="nome">Nome:<span style="color: red">*</span></label>
-                        <input type="text" id="nome" name="nome" placeholder="Digite o nome do cliente" required>
+                        <input type="text" id="nome" name="nome" placeholder="Digite o nome do cliente" value="{{ old('nome') }}" required>
+                        @error('nome')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <div class="input-group">
                         <label for="email">E-mail:<span style="color: red">*</span></label>
-                        <input type="email" id="email" name="email" placeholder="Digite o e-mail do cliente" required>
+                        <input type="email" id="email" name="email" placeholder="Digite o e-mail do cliente" value="{{ old('email') }}" required>
+                        @error('email')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <div class="input-group">
                         <label for="telefone">Telefone:<span style="color: red">*</span></label>
-                        <input type="text" id="telefone" name="telefone" placeholder="Digite o telefone" required>
+                        <input type="text" id="telefone" name="telefone" placeholder="Digite o telefone" value="{{ old('telefone') }}" required>
+                        @error('telefone')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <div class="input-group">
                         <label for="cpf">CPF:<span style="color: red">*</span></label>
-                        <input type="text" id="cpf" name="cpf" placeholder="Digite o CPF" required>
+                        <input type="text" id="cpf" name="cpf" placeholder="Digite o CPF" value="{{ old('cpf') }}" required>
+                        @error('cpf')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <div class="input-group">
                         <label for="data_nasc">Data de Nascimento:<span style="color: red">*</span></label>
-                        <input type="date" id="data_nasc" name="data_nasc" required>
+                        <input type="date" id="data_nasc" name="data_nasc" value="{{ old('data_nasc') }}" required>
+                        @error('data_nasc')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <button type="submit" class="btn w-100">Cadastrar</button>
                 </form>
+                
+                
             </div>
 
 

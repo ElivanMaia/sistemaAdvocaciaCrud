@@ -261,56 +261,59 @@
                     <div class="alert alert-info">{{ session()->get('message') }}</div>
                 @endif
 
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul class="mb-0" style="padding-left: 6px;">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-                <form action="{{ route('agendamentos.update', $agendamento->id) }}" method="POST"
-                    class="form-container">
+                <form action="{{ route('agendamentos.update', $agendamento->id) }}" method="POST" class="form-container">
                     @csrf
                     @method('PUT')
-
+                
                     <div class="input-group">
                         <label for="data">Data:<span style="color: red">*</span></label>
-                        <input type="datetime-local" id="data" name="data" value="{{ $agendamento->data }}" required>
+                        <input type="datetime-local" id="data" name="data" value="{{ old('data', $agendamento->data) }}" required>
+                        @error('data')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <div class="input-group">
                         <label for="descricao">Descrição:<span style="color: red">*</span></label>
-                        <textarea id="descricao" name="descricao" rows="3"
-                            required>{{ $agendamento->descricao }}</textarea>
+                        <textarea id="descricao" name="descricao" rows="3" required>{{ old('descricao', $agendamento->descricao) }}</textarea>
+                        @error('descricao')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <div class="input-group">
                         <label for="clientes_id">Cliente:<span style="color: red">*</span></label>
                         <select id="clientes_id" name="clientes_id" required>
+                            <option value="" disabled {{ old('clientes_id', $agendamento->clientes_id) ? '' : 'selected' }}>Selecione um cliente</option>
                             @foreach ($clientes as $cliente)
-                                <option value="{{ $cliente->id }}" {{ $agendamento->clientes_id == $cliente->id ? 'selected' : '' }}>
+                                <option value="{{ $cliente->id }}" {{ old('clientes_id', $agendamento->clientes_id) == $cliente->id ? 'selected' : '' }}>
                                     {{ $cliente->nome }}
                                 </option>
                             @endforeach
                         </select>
+                        @error('clientes_id')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <div class="input-group">
                         <label for="advogados_id">Advogado:<span style="color: red">*</span></label>
                         <select id="advogados_id" name="advogados_id" required>
+                            <option value="" disabled {{ old('advogados_id', $agendamento->advogados_id) ? '' : 'selected' }}>Selecione um advogado</option>
                             @foreach ($advogados as $advogado)
-                                <option value="{{ $advogado->id }}" {{ $agendamento->advogados_id == $advogado->id ? 'selected' : '' }}>
+                                <option value="{{ $advogado->id }}" {{ old('advogados_id', $agendamento->advogados_id) == $advogado->id ? 'selected' : '' }}>
                                     {{ $advogado->nome }}
                                 </option>
                             @endforeach
                         </select>
+                        @error('advogados_id')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <button type="submit" class="btn w-100">Salvar Alterações</button>
                 </form>
+                
             </div>
         </div>
     </div>

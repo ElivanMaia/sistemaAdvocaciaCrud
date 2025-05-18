@@ -203,43 +203,45 @@
                     <div class="alert alert-info">{{ session('message') }}</div>
                 @endif
 
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul class="mb-0" style="padding-left: 6px;">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
                 <form action="{{ route('processos.store') }}" method="POST" class="form-container">
                     @csrf
-
+                
                     <div class="input-group">
                         <label for="nome">Nome do Processo:<span style="color: red">*</span></label>
                         <input type="text" id="nome" name="nome" placeholder="Digite o nome do processo..."
                             value="{{ old('nome') }}" required>
+                        @error('nome')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <div class="input-group">
                         <label for="descricao">Descrição:<span style="color: red">*</span></label>
                         <textarea id="descricao" name="descricao" rows="3"
                             placeholder="Digite a descrição do processo...">{{ old('descricao') }}</textarea>
+                        @error('descricao')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <div class="input-group">
                         <label for="cliente_email">Cliente:<span style="color: red">*</span></label>
                         <select id="cliente_email" name="cliente_email" required>
-                            <option value="" disabled selected>Selecione um cliente</option>
+                            <option value="" disabled {{ old('cliente_email') ? '' : 'selected' }}>Selecione um cliente</option>
                             @foreach ($clientes as $cliente)
-                                <option value="{{ $cliente->email }}">{{ $cliente->nome }}</option>
+                                <option value="{{ $cliente->email }}" {{ old('cliente_email') == $cliente->email ? 'selected' : '' }}>
+                                    {{ $cliente->nome }}
+                                </option>
                             @endforeach
                         </select>
+                        @error('cliente_email')
+                            <div style="color: red; font-size: 0.9rem; margin-top: 4px;">{{ $message }}</div>
+                        @enderror
                     </div>
-
+                
                     <button type="submit" class="btn w-100">Salvar Processo</button>
                 </form>
+                
             </div>
         </div>
     </div>
